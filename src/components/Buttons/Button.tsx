@@ -1,8 +1,11 @@
+import router from "next/router";
+
 type ButtonProps = {
-  variant?: "primary" | "ghost" | "icon" | "join" | "plus";
+  variant?: "primary" | "ghost" | "icon" | "join" | "plus" | "back";
   size?: "sm" | "md" | "lg";
   icon?: React.ReactNode;
   children?: React.ReactNode;
+  onClickFunc?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
@@ -10,6 +13,7 @@ export default function Button({
   size = "md",
   icon,
   children,
+  onClickFunc,
   ...props
 }: ButtonProps) {
   const baseStyle =
@@ -26,10 +30,15 @@ export default function Button({
     icon: "p-2 bg-gray-200 hover:bg-gray-300 rounded-full",
     join: "bg-green-600 text-white hover:bg-green-700",
     plus: "bg-neutral-800 text-white hover:bg-neutral-700",
+    back: "bg-red-600 text-white hover:bg-red-700",
   }[variant];
 
   return (
-    <button className={`${baseStyle} ${sizeStyle} ${variantStyle}`} {...props}>
+    <button
+      onClick={onClickFunc || (() => {})}
+      className={`${baseStyle} ${sizeStyle} ${variantStyle}`}
+      {...props}
+    >
       {icon}
       {children}
     </button>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import style from "./Tag.module.css";
+import { LuX, LuPlus } from "react-icons/lu";
+import Button from "./Buttons/Button";
 
 interface TagProps {
   category?: string;
@@ -40,12 +42,11 @@ const Tag: React.FC<TagProps> = ({
           <div key={index} className={style.tag}>
             {tag}
             {editable && (
-              <button
+              <Button
                 className={style.remove_button}
+                icon={<LuX />}
                 onClick={() => handleRemoveTag(tag)}
-              >
-                ×
-              </button>
+              />
             )}
           </div>
         ))}
@@ -59,9 +60,11 @@ const Tag: React.FC<TagProps> = ({
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
             />
-            <button className={style.add_button} onClick={handleAddTag}>
-              +
-            </button>
+            <Button
+              className={style.add_button}
+              icon={<LuPlus />}
+              onClick={handleAddTag}
+            />
           </div>
         )}
       </div>

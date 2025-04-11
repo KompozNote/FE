@@ -1,8 +1,12 @@
+"use client";
 import { css } from "../../styled-system/css";
-
+import Button from "@/components/Buttons/Button";
 import { FaCode } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { LuPlus, LuArrowLeft } from "react-icons/lu";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div
       className={css({
@@ -16,6 +20,12 @@ export default function Home() {
     >
       <FaCode />
       <span>Hello World!</span>
+      <Button
+        variant="back"
+        size="lg"
+        icon={<LuArrowLeft />}
+        onClick={() => router.back()}
+      />
     </div>
   );
 }
