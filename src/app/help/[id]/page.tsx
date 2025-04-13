@@ -2,25 +2,32 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import Button from "@/components/Buttons/Button";
 import SongPlayer from "@/components/SongPlayer/SongPlayer";
 import SongProgressBar from "@/components/SongPlayer/SongProgressBar";
 import { css } from "@/../../styled-system/css";
 import { stack } from "@/../../styled-system/patterns";
-import { songData } from "@/mock/songData";
+import { songDataList } from "@/mock/songData";
 
-export default function Help() {
+type Props = {
+  params: { id: string };
+};
+
+export default function Help({ params }: Props) {
   const [showFullContent, setShowFullContent] = useState(false);
 
-  const handleToggleContent = () => {
-    setShowFullContent((prev) => !prev);
-  };
+  const song = songDataList.find((item) => item.id === params.id);
 
-  const isOverflow = songData.content.length > 100;
+  if (!song) return notFound();
+
+  const handleToggleContent = () => setShowFullContent((prev) => !prev);
+
+  const isOverflow = song.content.length > 100;
   const displayedContent =
     showFullContent || !isOverflow
-      ? songData.content
-      : songData.content.slice(0, 100) + "...";
+      ? song.content
+      : song.content.slice(0, 100) + "...";
 
   return (
     <div
@@ -34,7 +41,7 @@ export default function Help() {
     >
       {/* 앨범 이미지 */}
       <Image
-        src="/mock_album.png"
+        src={song.image}
         alt="Album"
         width={512}
         height={512}
@@ -43,13 +50,17 @@ export default function Help() {
 
       {/* 노래 정보 */}
       <div className={css({ mt: "4" })}>
-        <div className={css({ fontWeight: "semibold" })}>{songData.title}</div>
-        <div className={css({ color: "gray.500" })}>{songData.singer}</div>
+        <div className={css({ fontWeight: "semibold" })}>{song.title}</div>
+        <div className={css({ color: "gray.500" })}>{song.singer}</div>
       </div>
 
       {/* 플레이어 */}
-      <div className={stack({ gap: "2" })}>
-        <SongProgressBar currentTime={0} duration={0} onSeek={() => {}} />
+      <div className={stack({ gap: "1" })}>
+        <SongProgressBar
+          currentTime={0}
+          duration={song.duration}
+          onSeek={() => {}}
+        />
         <SongPlayer />
       </div>
 
@@ -62,7 +73,7 @@ export default function Help() {
               className={css({ color: "blue.600", fontSize: "sm", ml: "1" })}
               onClick={handleToggleContent}
             >
-              {showFullContent ? "간단히 보기" : "더 보기"}
+              {showFullContent ? "Show less" : "Show more"}
             </button>
           )}
         </div>

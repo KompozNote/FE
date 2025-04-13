@@ -29,8 +29,8 @@ export default function SongPlayer() {
   return (
     <div
       className={css({
-        maxW: "500px",
-        p: "4",
+        maxW: "400px",
+        p: "2",
       })}
     >
       <div
@@ -38,7 +38,6 @@ export default function SongPlayer() {
           justify: "center",
           align: "center",
           gap: "10",
-          mt: "6",
           w: "370px",
         })}
       >
