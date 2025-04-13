@@ -1,0 +1,35 @@
+.profile_header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile_header_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.profile_avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.profile_title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close_button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
