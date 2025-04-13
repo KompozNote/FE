@@ -9,7 +9,6 @@ export default function HelpLayout({
   return (
     <div>
       <ProfileHeader />
-      <h1>Help 헤더</h1>
       <main>{children}</main>
     </div>
   );
