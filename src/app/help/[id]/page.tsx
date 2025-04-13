@@ -1,33 +1,58 @@
+// src/app/help/[id]/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Button from "@/components/Buttons/Button";
-import SongPlayer from "@/components/SongPlayer/SongPlayer";
 import SongProgressBar from "@/components/SongPlayer/SongProgressBar";
+import SongPlayer from "@/components/SongPlayer/SongPlayer";
+import { songDataList } from "@/mock/songData";
 import { css } from "@/../../styled-system/css";
 import { stack } from "@/../../styled-system/patterns";
-import { songDataList } from "@/mock/songData";
+import Button from "@/components/Buttons/Button";
 
 type Props = {
   params: { id: string };
 };
 
 export default function Help({ params }: Props) {
-  const [showFullContent, setShowFullContent] = useState(false);
-
   const song = songDataList.find((item) => item.id === params.id);
-
   if (!song) return notFound();
 
-  const handleToggleContent = () => setShowFullContent((prev) => !prev);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showFullContent, setShowFullContent] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const isOverflow = song.content.length > 100;
   const displayedContent =
     showFullContent || !isOverflow
       ? song.content
       : song.content.slice(0, 100) + "...";
+
+  const handleToggleContent = () => {
+    setShowFullContent((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
+      }
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <div
@@ -48,25 +73,48 @@ export default function Help({ params }: Props) {
         className={css({ w: "full", h: "auto", rounded: "md" })}
       />
 
-      {/* 노래 정보 */}
+      {/* 타이틀 & 아티스트 */}
       <div className={css({ mt: "4" })}>
         <div className={css({ fontWeight: "semibold" })}>{song.title}</div>
         <div className={css({ color: "gray.500" })}>{song.singer}</div>
       </div>
 
+      {/* 오디오 */}
+      <audio
+        ref={audioRef}
+        src={song.audio}
+        preload="metadata"
+        onLoadedMetadata={(e) => {
+          const d = e.currentTarget.duration;
+          console.log("🎧 오디오 duration:", d);
+          if (!isNaN(d) && d > 0) setDuration(d);
+        }}
+      />
+
       {/* 플레이어 */}
-      <div className={stack({ gap: "1" })}>
+      <div>
         <SongProgressBar
-          currentTime={0}
-          duration={song.duration}
-          onSeek={() => {}}
+          currentTime={currentTime}
+          duration={duration}
+          onSeek={(time) => {
+            if (audioRef.current) audioRef.current.currentTime = time;
+          }}
         />
-        <SongPlayer />
+        <SongPlayer
+          isPlaying={isPlaying}
+          onTogglePlay={togglePlay}
+          onForward={() => {
+            if (audioRef.current) audioRef.current.currentTime += 10;
+          }}
+          onBackward={() => {
+            if (audioRef.current) audioRef.current.currentTime -= 10;
+          }}
+        />
       </div>
 
-      {/* 콘텐츠 설명 */}
+      {/* 설명 + Help 버튼 */}
       <div>
-        <div className={css({ whiteSpace: "pre-line", mb: "2" })}>
+        <div className={css({ whiteSpace: "pre-line", mb: "30" })}>
           {displayedContent}
           {isOverflow && (
             <button
@@ -78,7 +126,6 @@ export default function Help({ params }: Props) {
           )}
         </div>
 
-        {/* Help 버튼 */}
         <Button size="md" variant="primary">
           Help
         </Button>
