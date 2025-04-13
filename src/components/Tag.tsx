@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import style from "./Tag.module.css";
+import { css } from "@/../../styled-system/css";
 import { LuX, LuPlus } from "react-icons/lu";
 import Button from "./Buttons/Button";
 
@@ -35,15 +35,52 @@ const Tag: React.FC<TagProps> = ({
   };
 
   return (
-    <div className={style.tag_container}>
-      {category && <h3 className={style.category}>{category}</h3>}
-      <div className={style.tags}>
+    <div
+      className={css({
+        marginBottom: "16px",
+      })}
+    >
+      {category && (
+        <h3
+          className={css({
+            fontSize: "14px",
+            fontWeight: "bold",
+            marginBottom: "8px",
+          })}
+        >
+          {category}
+        </h3>
+      )}
+      <div
+        className={css({
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "8px",
+        })}
+      >
         {currentTags.map((tag, index) => (
-          <div key={index} className={style.tag}>
+          <div
+            key={index}
+            className={css({
+              backgroundColor: "#e0e0e0",
+              padding: "8px 12px",
+              borderRadius: "16px",
+              fontSize: "14px",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            })}
+          >
             {tag}
             {editable && (
               <Button
-                className={style.remove_button}
+                className={css({
+                  background: "none",
+                  border: "none",
+                  fontSize: "12px",
+                  cursor: "pointer",
+                  color: "#888",
+                })}
                 icon={<LuX />}
                 onClick={() => handleRemoveTag(tag)}
               />
@@ -51,9 +88,20 @@ const Tag: React.FC<TagProps> = ({
           </div>
         ))}
         {editable && (
-          <div className={style.input_wrapper}>
+          <div
+            className={css({
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            })}
+          >
             <input
-              className={style.input}
+              className={css({
+                border: "1px solid #ccc",
+                borderRadius: "16px",
+                padding: "8px 12px",
+                fontSize: "14px",
+              })}
               type="text"
               value={inputValue}
               placeholder="Add a tag"
@@ -61,7 +109,15 @@ const Tag: React.FC<TagProps> = ({
               onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
             />
             <Button
-              className={style.add_button}
+              className={css({
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "16px",
+                padding: "8px 12px",
+                fontSize: "14px",
+                cursor: "pointer",
+              })}
               icon={<LuPlus />}
               onClick={handleAddTag}
             />
