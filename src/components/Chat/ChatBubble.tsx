@@ -21,7 +21,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
         className={css({
           maxWidth: "70%",
           borderRadius: "1rem",
-          padding: "0.5rem 1rem",
+          padding: "0.25rem 1rem",
           backgroundColor: isOwner ? "#3b82f6" : "#e5e7eb",
           color: isOwner ? "white" : "#1f2937",
           borderBottomRightRadius: isOwner ? "0" : "1rem",
@@ -30,7 +30,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       >
         <p
           className={css({
-            fontSize: "0.875rem",
+            fontSize: "1rem",
             margin: "0",
           })}
         >
