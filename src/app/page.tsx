@@ -4,6 +4,10 @@ import Button from "@/components/Buttons/Button";
 import { FaCode } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { LuPlus, LuArrowLeft } from "react-icons/lu";
+import SongPlayer from "@/components/SongPlayer/SongPlayer";
+import SongProgressBar from "@/components/SongPlayer/SongProgressBar";
+import AudioSelector from "@/components/Audio/AudioPlayer";
+
 
 export default function Home() {
   const router = useRouter();
@@ -11,6 +15,7 @@ export default function Home() {
     <div
       className={css({
         display: "flex",
+        flexDirection: "column",
         fontSize: "10em",
         fontWeight: "bold",
         justifyContent: "center",
@@ -18,14 +23,15 @@ export default function Home() {
         gap: "0.1em",
       })}
     >
-      <FaCode />
-      <span>Hello World!</span>
-      <Button
-        variant="back"
-        size="lg"
-        icon={<LuArrowLeft />}
-        onClick={() => router.back()}
+
+
+      <AudioSelector
+        duration={0}
+        currentTime={300}
+        onSelectionChange={() => {}}
       />
+      <SongProgressBar duration={0} currentTime={300} onSeek={() => {}} />
+      <SongPlayer />
     </div>
   );
 }
