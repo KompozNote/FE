@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./ProfileImg.module.css";
+import Image from "next/image";
 
 interface ProfileImgProps {
   src: string;
@@ -12,7 +13,7 @@ const ProfileImg: React.FC<ProfileImgProps> = ({
 }) => {
   return (
     <div className={style.profile_img_wrapper}>
-      <img className={style.profile_img} src={src} alt={alt} />
+      <Image className={style.profile_img} src={src} alt={alt} />
     </div>
   );
 };

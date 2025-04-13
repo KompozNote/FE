@@ -1,0 +1,16 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="100" fill="#34D399"/>
+  
+  <!-- Abstract Portrait -->
+  <circle cx="100" cy="85" r="35" fill="#A7F3D0"/>
+  <path d="M50 160 Q100 200 150 160" fill="#A7F3D0"/>
+  <path d="M65 75 Q100 95 135 75" fill="#065F46" stroke="#065F46" stroke-width="2"/>
+  
+  <!-- Hair -->
+  <path d="M60 85 Q60 40 100 40 Q140 40 140 85 Q100 100 60 85" fill="#1F2937"/>
+  
+  <!-- Music Note Earrings -->
+  <path d="M50 90 L55 75 L60 90 L55 85 L50 90" fill="#065F46"/>
+  <path d="M140 90 L145 75 L150 90 L145 85 L140 90" fill="#065F46"/>
+</svg> 
