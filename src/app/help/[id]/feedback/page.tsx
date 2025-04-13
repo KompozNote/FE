@@ -6,6 +6,7 @@ import AudioPlayer from "@/components/Audio/AudioPlayer";
 import { LuPlay, LuPause } from "react-icons/lu";
 import { songDataList } from "@/mock/songData";
 import { notFound } from "next/navigation";
+import ChatWidget from "@/components/Chat/ChatWidget";
 
 type Props = {
   params: { id: string };
@@ -65,12 +66,13 @@ export default function HelpPage({ params }: Props) {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        overflow: "hidden",
       })}
     >
       {/* 🖼 앨범 영역 (키보드 올라오면 숨김) */}
       {!keyboardUp && (
         <div className={css({ p: "4", borderBottom: "1px solid #eee" })}>
-          {/* 🔸 앨범 이미지 + 타이틀/가수 (flex row) */}
+          {/* 🔸 앨범 이미지 + 타이틀/가수 */}
           <div
             className={css({
               display: "flex",
@@ -92,12 +94,19 @@ export default function HelpPage({ params }: Props) {
             />
             <div>
               <div
-                className={css({ fontWeight: "bold", fontSize: "lg", mb: "1" })}
+                className={css({
+                  fontWeight: "bold",
+                  fontSize: "lg",
+                  mb: "1",
+                })}
               >
                 {song.title}
               </div>
               <div
-                className={css({ fontWeight: "semibold", color: "gray.500" })}
+                className={css({
+                  fontWeight: "semibold",
+                  color: "gray.500",
+                })}
               >
                 {song.singer}
               </div>
@@ -124,6 +133,7 @@ export default function HelpPage({ params }: Props) {
           alignItems: "center",
           gap: "2",
           p: "4",
+          borderBottom: "1px solid #eee",
         })}
       >
         <audio
@@ -163,40 +173,8 @@ export default function HelpPage({ params }: Props) {
         }}
       />
 
-      {/* 💬 댓글 입력창
-      <div
-        className={css({
-          marginTop: "auto",
-          padding: "3",
-          borderTop: "1px solid #eee",
-          display: "flex",
-          alignItems: "center",
-          gap: "2",
-        })}
-      >
-        <span
-          className={css({
-            fontSize: "sm",
-            color: "blue.500",
-            whiteSpace: "nowrap",
-          })}
-        >
-          {formatTime(selection[0])}~{formatTime(selection[1])}
-        </span>
-        <input
-          ref={inputRef}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="댓글을 입력하세요..."
-          className={css({
-            flex: 1,
-            border: "none",
-            outline: "none",
-            fontSize: "sm",
-            bg: "transparent",
-          })}
-        />
-      </div> */}
+      {/* 💬 채팅 영역 */}
+      <ChatWidget />
     </div>
   );
 }

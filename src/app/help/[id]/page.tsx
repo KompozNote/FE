@@ -10,6 +10,7 @@ import { songDataList } from "@/mock/songData";
 import { css } from "@/../../styled-system/css";
 import { stack } from "@/../../styled-system/patterns";
 import Button from "@/components/Buttons/Button";
+import Link from "next/link";
 
 type Props = {
   params: { id: string };
@@ -125,10 +126,11 @@ export default function Help({ params }: Props) {
             </button>
           )}
         </div>
-
-        <Button size="md" variant="primary">
-          Help
-        </Button>
+        <Link href={`/help/${params.id}/feedback`}>
+          <Button size="md" variant="primary">
+            Help
+          </Button>
+        </Link>
       </div>
     </div>
   );
