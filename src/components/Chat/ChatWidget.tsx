@@ -43,8 +43,7 @@ const ChatWidget: React.FC = () => {
       className={css({
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
-        maxHeight: "800px",
+        height: "100%",
         backgroundColor: "white",
         borderRadius: "0.5rem",
         boxShadow:
@@ -56,7 +55,7 @@ const ChatWidget: React.FC = () => {
         className={css({
           flex: 1,
           overflowY: "auto",
-          padding: "1rem",
+          padding: "0 1.5rem",
         })}
       >
         <ChatList messages={messages} />

@@ -3,7 +3,7 @@
 import MusicPlayer from "@/components/MusicPlayer/MusicPlayer";
 import { Track } from "@/types/music";
 import { css } from "../../styled-system/css";
-import ChatWidget from "@/components/Chat/ChatWidget";
+import Link from "next/link";
 
 export default function Home() {
   const tracks: Track[] = [
@@ -52,6 +52,18 @@ export default function Home() {
         position: "relative",
       })}
     >
+      <Link
+        className={css({
+          backgroundColor: "black",
+          color: "white",
+          padding: "0.5rem 1rem",
+          borderRadius: "0.5rem",
+          width: "fit-content",
+        })}
+        href="/chat"
+      >
+        Chat
+      </Link>
       <div
         className={css({
           display: "flex",
@@ -70,7 +82,6 @@ export default function Home() {
           })}
         >
           <MusicPlayer tracks={tracks} />
-          <ChatWidget />
         </div>
       </div>
     </main>
