@@ -13,7 +13,6 @@ export default function ChatPage() {
         height: "100vh",
       })}
     >
-      <ProfileHeader />
       <ChatWidget />
     </div>
   );
