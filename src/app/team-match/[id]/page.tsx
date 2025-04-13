@@ -1,4 +1,6 @@
 import { css } from "@/../../styled-system/css";
+import Button from "@/components/Buttons/Button";
+import Link from "next/link";
 
 // 동적 라우팅 파라미터 가져오기
 type Props = {
@@ -173,26 +175,20 @@ export default function TeamMatchDetailPage({ params }: Props) {
             ))}
           </div>
         </div>
+        <div
+          className={css({
+            display: "flex",
+            justifyContent: "center", // 가로 가운데 정렬
+            mt: "4", // 여백
+          })}
+        >
+          <Link href={`/team-match/${params.id}/chat`}>
+            <Button size="md" variant="primary">
+              Join in
+            </Button>
+          </Link>
+        </div>
       </div>
-
-      {/* Join Button */}
-      <button
-        className={css({
-          position: "fixed",
-          bottom: "0",
-          width: "100%",
-          maxWidth: "400px",
-          padding: "12px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          borderRadius: "5px",
-          fontWeight: "bold",
-          textAlign: "center",
-          cursor: "pointer",
-        })}
-      >
-        Join in
-      </button>
     </div>
   );
 }

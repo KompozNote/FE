@@ -126,11 +126,19 @@ export default function Help({ params }: Props) {
             </button>
           )}
         </div>
-        <Link href={`/help/${params.id}/feedback`}>
-          <Button size="md" variant="primary">
-            Help
-          </Button>
-        </Link>
+        <div
+          className={css({
+            display: "flex",
+            justifyContent: "center", // 가로 가운데 정렬
+            mt: "4", // 여백
+          })}
+        >
+          <Link href={`/help/${params.id}/feedback`}>
+            <Button size="md" variant="primary">
+              Help
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

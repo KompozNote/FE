@@ -12,7 +12,6 @@ type ButtonProps = {
   onClickFunc?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-// ✨ Panda용 스타일 정의 (cva = class variance authority)
 const buttonStyle = cva({
   base: {
     rounded: "xl",
@@ -31,7 +30,9 @@ const buttonStyle = cva({
     },
     variant: {
       primary: {
-        p: "15px 170px",
+        w: "100%",
+        maxW: "400px",
+        p: "15px 150px",
         bg: "gray.200",
         color: "black",
         _hover: { bg: "gray.400" },
