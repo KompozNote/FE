@@ -56,6 +56,7 @@ const ChatList: React.FC<ChatListProps> = ({ messages }) => {
       className={css({
         display: "flex",
         flexDirection: "column",
+        padding: "0.5rem 1rem",
         gap: "0.5rem",
         height: "100%",
         overflowY: "auto",
@@ -98,7 +99,7 @@ const ChatList: React.FC<ChatListProps> = ({ messages }) => {
             className={css({
               display: "flex",
               flexDirection: "column",
-              gap: "1rem",
+              gap: "0.3rem",
             })}
           >
             {messages.map((message) => (

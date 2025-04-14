@@ -7,15 +7,13 @@ import { LuPlay, LuPause } from "react-icons/lu";
 import { songDataList } from "@/mock/songData";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/Chat/ChatWidget";
+import Image from "next/image";
 
 type Props = {
   params: { id: string };
 };
 
 export default function HelpPage({ params }: Props) {
-  const song = songDataList.find((item) => item.id === params.id);
-  if (!song) return notFound();
-
   const [audioTime, setAudioTime] = useState(0);
   const [duration, setDuration] = useState(90); // 초기값
   const [playing, setPlaying] = useState(false);
@@ -30,8 +28,11 @@ export default function HelpPage({ params }: Props) {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
-    playing ? audio.play() : audio.pause();
+    if (playing) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
   }, [playing]);
 
   // 현재 재생 시간 추적
@@ -47,12 +48,16 @@ export default function HelpPage({ params }: Props) {
     const handler = () => setKeyboardUp(true);
     const handlerDown = () => setKeyboardUp(false);
     window.addEventListener("resize", handler);
-    inputRef.current?.addEventListener("blur", handlerDown);
+    const element = inputRef.current;
+    element?.addEventListener("blur", handlerDown);
     return () => {
       window.removeEventListener("resize", handler);
-      inputRef.current?.removeEventListener("blur", handlerDown);
+      element?.removeEventListener("blur", handlerDown);
     };
   }, []);
+
+  const song = songDataList.find((item) => item.id === params.id);
+  if (!song) return notFound();
 
   const formatTime = (time: number) => {
     const m = Math.floor(time / 60);
@@ -63,9 +68,9 @@ export default function HelpPage({ params }: Props) {
   return (
     <div
       className={css({
-        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         overflow: "hidden",
       })}
     >
@@ -81,7 +86,7 @@ export default function HelpPage({ params }: Props) {
               mb: "4",
             })}
           >
-            <img
+            <Image
               src={song.image}
               alt="앨범 이미지"
               width={110}

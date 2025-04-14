@@ -6,10 +6,13 @@ import { LuX } from "react-icons/lu";
 
 const ProfileHeader: React.FC = () => {
   return (
-    <header
+    <div
       className={css({
-        backgroundColor: "white",
-        zIndex: 1000,
+        position: "sticky",
+        top: 0,
+        backgroundColor: "#ffffff",
+        borderBottom: "1px solid #e0e0e0",
+        zIndex: 100,
       })}
     >
       <div
@@ -39,7 +42,7 @@ const ProfileHeader: React.FC = () => {
           icon={<LuX />}
         />
       </div>
-    </header>
+    </div>
   );
 };
 
