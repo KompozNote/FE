@@ -36,13 +36,12 @@ export default function RootLayout({
           className={css({
             display: "flex",
             margin: "0 auto",
-            padding: "50px 15px",
             width: "100%",
             maxWidth: "430px",
             height: "1000px",
             backgroundColor: "#ffffff",
             flexDirection: "column",
-            overflowY: "scroll",
+            overflowY: "auto",
           })}
         >
           {children}

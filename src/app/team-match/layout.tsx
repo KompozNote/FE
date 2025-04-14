@@ -7,9 +7,9 @@ export default function HelpLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <>
       <ProfileHeader />
-      <main>{children}</main>
-    </div>
+      {children}
+    </>
   );
 }

@@ -68,9 +68,9 @@ export default function HelpPage({ params }: Props) {
   return (
     <div
       className={css({
-        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         overflow: "hidden",
       })}
     >

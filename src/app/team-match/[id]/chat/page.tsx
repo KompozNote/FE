@@ -10,7 +10,7 @@ export default function ChatPage() {
       className={css({
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
+        height: "100%",
       })}
     >
       <ChatWidget />

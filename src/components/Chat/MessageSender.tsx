@@ -25,7 +25,7 @@ const MessageSender: React.FC<MessageSenderProps> = ({ onSendMessage }) => {
   return (
     <div
       className={css({
-        padding: "1rem",
+        padding: "0.5rem 0.7rem",
         borderTop: "1px solid #e5e7eb",
       })}
     >

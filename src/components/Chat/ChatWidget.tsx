@@ -65,7 +65,6 @@ const ChatWidget: React.FC = () => {
         <ChatList messages={messages} />
         <div ref={scrollRef} /> {/* ✅ 자동 스크롤 포인트 */}
       </div>
-
       <MessageSender onSendMessage={handleSendMessage} />
     </div>
   );
