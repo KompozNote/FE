@@ -1,6 +1,5 @@
 "use client";
 
-import { css } from "@/../../styled-system/css";
 import { cva } from "@/../../styled-system/css";
 import React from "react";
 

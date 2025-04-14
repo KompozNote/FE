@@ -28,18 +28,25 @@ export default function RootLayout({
       <body
         className={
           css({
-            minH: "100vh",
-            w: "100%",
-            maxW: "430px",
-            margin: "0 auto",
-            padding: "50px 15px",
-            display: "flex",
-            flexDirection: "column",
-            bg: "white", // 원하는 기본 배경색
+            backgroundColor: "#808080",
           }) + ` ${geistSans.variable} ${geistMono.variable}`
         }
       >
-        {children}
+        <div
+          className={css({
+            display: "flex",
+            margin: "0 auto",
+            padding: "50px 15px",
+            width: "100%",
+            maxWidth: "430px",
+            height: "1000px",
+            backgroundColor: "#ffffff",
+            flexDirection: "column",
+            overflowY: "scroll",
+          })}
+        >
+          {children}
+        </div>
       </body>
     </html>
   );

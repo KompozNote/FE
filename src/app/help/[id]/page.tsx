@@ -17,14 +17,23 @@ type Props = {
 };
 
 export default function Help({ params }: Props) {
-  const song = songDataList.find((item) => item.id === params.id);
-  if (!song) return notFound();
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showFullContent, setShowFullContent] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
+      }
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const song = songDataList.find((item) => item.id === params.id);
+  if (!song) return notFound();
 
   const isOverflow = song.content.length > 100;
   const displayedContent =
@@ -35,15 +44,6 @@ export default function Help({ params }: Props) {
   const handleToggleContent = () => {
     setShowFullContent((prev) => !prev);
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (audioRef.current) {
-        setCurrentTime(audioRef.current.currentTime);
-      }
-    }, 200);
-    return () => clearInterval(interval);
-  }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
