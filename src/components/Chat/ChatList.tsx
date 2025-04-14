@@ -99,7 +99,7 @@ const ChatList: React.FC<ChatListProps> = ({ messages }) => {
             className={css({
               display: "flex",
               flexDirection: "column",
-              gap: "1rem",
+              gap: "0.3rem",
             })}
           >
             {messages.map((message) => (
