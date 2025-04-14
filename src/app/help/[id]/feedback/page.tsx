@@ -8,7 +8,7 @@ import { songDataList } from "@/mock/songData";
 import { notFound } from "next/navigation";
 import ChatWidget from "@/components/Chat/ChatWidget";
 import Image from "next/image";
-
+import Button from "@/components/Buttons/Button";
 type Props = {
   params: { id: string };
 };
@@ -150,7 +150,7 @@ export default function HelpPage({ params }: Props) {
             if (!isNaN(d) && d > 0) setDuration(d);
           }}
         />
-        <button
+        <Button
           onClick={() => setPlaying(!playing)}
           className={css({
             p: "2",
@@ -162,7 +162,7 @@ export default function HelpPage({ params }: Props) {
           })}
         >
           {playing ? <LuPause /> : <LuPlay />}
-        </button>
+        </Button>
         <span className={css({ fontSize: "sm", color: "gray.600" })}>
           {formatTime(audioTime)} / {formatTime(duration)}
         </span>

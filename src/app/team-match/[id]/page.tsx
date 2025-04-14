@@ -31,10 +31,8 @@ export default function TeamMatchDetailPage({ params }: Props) {
       className={css({
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
+        overflowY: "auto",
         padding: "16px",
-        maxWidth: "400px",
-        margin: "0 auto",
         gap: "24px",
         paddingBottom: "80px", // 버튼 영역 확보
       })}
