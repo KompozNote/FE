@@ -102,10 +102,12 @@ export default function AudioSelector({
             position: "absolute",
             top: 0,
             bottom: 0,
-            left: `${progressPercent}%`,
             width: "2px",
             bg: "red.500",
           })}
+          style={{
+            left: `${progressPercent}%`,
+          }}
         />
         {/* 좌측 핸들 */}
         <div
