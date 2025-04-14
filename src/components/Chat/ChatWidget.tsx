@@ -39,7 +39,6 @@ const ChatWidget: React.FC = () => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
-  // ✅ 메시지 변경 시 스크롤 맨 아래로 이동
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -49,21 +48,19 @@ const ChatWidget: React.FC = () => {
       className={css({
         display: "flex",
         flexDirection: "column",
-        height: "100%", // 필요에 따라 '600px' 등으로 변경 가능
         backgroundColor: "white",
         overflow: "hidden",
+        flex: 1,
       })}
     >
       <div
         className={css({
+          overflow: "hidden",
           flex: 1,
-          overflowY: "auto",
-          padding: "0 1.5rem",
-          paddingBottom: "4rem", // ✅ 입력창과 간격
         })}
       >
         <ChatList messages={messages} />
-        <div ref={scrollRef} /> {/* ✅ 자동 스크롤 포인트 */}
+        <div ref={scrollRef} />
       </div>
       <MessageSender onSendMessage={handleSendMessage} />
     </div>
