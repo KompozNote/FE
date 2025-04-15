@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { css } from "@/../../styled-system/css";
 import AudioPlayer from "@/components/Audio/AudioPlayer";
 import { LuPlay, LuPause } from "react-icons/lu";
@@ -26,9 +26,13 @@ export default function HelpPage({ params }: Props) {
   const [currentTime, setCurrentTime] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [selection, setSelection] = useState<[number, number]>([0, 10]);
-  const [comment, setComment] = useState("");
 
   const song = songDataList.find((item) => item.id === params.id);
+
+  const handleSelectionChange = useCallback((start: number, end: number) => {
+    setSelection([start, end]);
+  }, []);
+
   if (!song) return notFound();
 
   return (
@@ -98,7 +102,6 @@ export default function HelpPage({ params }: Props) {
       <div
         className={css({
           display: "flex",
-          alignItems: "center",
           gap: "2",
           p: "4",
           borderBottom: "1px solid #eee",
@@ -147,12 +150,29 @@ export default function HelpPage({ params }: Props) {
       <AudioPlayer
         duration={duration}
         currentTime={currentTime}
-        onSelectionChange={(start, end) => {
-          setSelection([start, end]);
-          setComment(`${formatTime(start)}~${formatTime(end)} `);
-        }}
+        onSelectionChange={handleSelectionChange}
       />
-
+      <div
+        className={css({
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "2",
+          borderRadius: "lg",
+          fontWeight: "medium",
+          fontSize: "sm",
+          color: "blue.500",
+          m: "auto",
+          mt: "4",
+        })}
+      >
+        <span>
+          Start: <strong>{Math.floor(selection[0])}s ~</strong>
+        </span>
+        <span>
+          End: <strong>{Math.floor(selection[1])}s</strong>
+        </span>
+      </div>
       {/* 💬 채팅 영역 */}
       <ChatWidget />
     </div>
