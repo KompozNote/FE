@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { css } from "../../../styled-system/css";
 import ChatList, { Message } from "./ChatList";
 import MessageSender from "./MessageSender";
@@ -26,7 +26,6 @@ const initialMessages: Message[] = [
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleSendMessage = (content: string) => {
     const newMessage: Message = {
@@ -38,10 +37,6 @@ const ChatWidget: React.FC = () => {
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
-
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
 
   return (
     <div
@@ -55,12 +50,14 @@ const ChatWidget: React.FC = () => {
     >
       <div
         className={css({
+          display: "flex",
+          flexDirection: "column",
           overflow: "hidden",
+          justifyContent: "flex-end",
           flex: 1,
         })}
       >
         <ChatList messages={messages} />
-        <div ref={scrollRef} />
       </div>
       <MessageSender onSendMessage={handleSendMessage} />
     </div>
