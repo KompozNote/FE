@@ -57,12 +57,13 @@ export default function Help({ params }: Props) {
 
   return (
     <div
-      className={stack({
-        gap: "4",
-        p: "4",
-        h: "100vh",
-        bg: "white",
-        justify: "space-between",
+      className={css({
+        display: "flex",
+        flexDirection: "column",
+        padding: "1em",
+        gap: "1em",
+        flex: 1,
+        overflowY: "auto",
       })}
     >
       {/* 앨범 이미지 */}
@@ -75,7 +76,7 @@ export default function Help({ params }: Props) {
       />
 
       {/* 타이틀 & 아티스트 */}
-      <div className={css({ mt: "4" })}>
+      <div>
         <div className={css({ fontWeight: "semibold" })}>{song.title}</div>
         <div className={css({ color: "gray.500" })}>{song.singer}</div>
       </div>
