@@ -38,7 +38,7 @@ export default function RootLayout({
             margin: "0 auto",
             width: "100%",
             maxWidth: "430px",
-            height: "1000px",
+            height: "800px",
             backgroundColor: "#ffffff",
             flexDirection: "column",
             overflowY: "auto",
