@@ -1,21 +1,65 @@
-import { css } from "../../styled-system/css";
+"use client";
 
-import { FaCode } from "react-icons/fa";
+import { css } from "../../styled-system/css";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div
+    <main
       className={css({
         display: "flex",
-        fontSize: "10em",
+        flexDirection: "column",
         fontWeight: "bold",
         justifyContent: "center",
         alignItems: "center",
         gap: "0.1em",
       })}
     >
-      <FaCode />
-      <span>Hello World!</span>
-    </div>
+      <div>Hello World!</div>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/help/1"
+      >
+        Help
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/help/1/feedback"
+      >
+        Help Feedback
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/team-match/1"
+      >
+        Team Match
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/team-match/1/chat"
+      >
+        Team Match Chat
+      </Link>
+    </main>
   );
 }
