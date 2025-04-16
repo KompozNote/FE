@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { css } from "@/../../styled-system/css";
 
 interface AudioSelectorProps {
@@ -17,6 +17,8 @@ export default function AudioSelector({
   const barRef = useRef<HTMLDivElement>(null);
   const [selectionStart, setSelectionStart] = useState(0);
   const [selectionEnd, setSelectionEnd] = useState(duration * 0.3); // 초기 30%까지만 선택
+  const [finalSelectionStart, setFinalSelectionStart] = useState(0);
+  const [finalSelectionEnd, setFinalSelectionEnd] = useState(0);
   const [dragTarget, setDragTarget] = useState<"start" | "end" | null>(null);
 
   const formatTime = (time: number) => {
@@ -40,22 +42,39 @@ export default function AudioSelector({
     setDragTarget(type);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!dragTarget) return;
-    const time = getTimeFromPosition(e.clientX);
-    if (dragTarget === "start") {
-      setSelectionStart(Math.min(time, selectionEnd - 1)); // 최소 1초 간격
-    } else {
-      setSelectionEnd(Math.max(time, selectionStart + 1));
-    }
-  };
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!dragTarget) return;
+      const time = getTimeFromPosition(e.clientX);
+      if (dragTarget === "start") {
+        setSelectionStart(Math.min(time, selectionEnd - 1)); // 최소 1초 간격
+      } else {
+        setSelectionEnd(Math.max(time, selectionStart + 1));
+      }
+    },
+    [dragTarget, selectionStart, selectionEnd]
+  );
 
-  const handleMouseUp = () => {
-    if (dragTarget) {
-      setDragTarget(null);
-      onSelectionChange(selectionStart, selectionEnd);
-    }
-  };
+  const handleMouseUp = useCallback(
+    (e: MouseEvent) => {
+      if (dragTarget) {
+        setDragTarget(null);
+        const time = getTimeFromPosition(e.clientX);
+        if (dragTarget === "start") {
+          setSelectionStart(time);
+          setFinalSelectionStart(time);
+        } else {
+          setSelectionEnd(time);
+          setFinalSelectionEnd(time);
+        }
+      }
+    },
+    [dragTarget, selectionStart, selectionEnd]
+  );
+
+  useEffect(() => {
+    onSelectionChange(finalSelectionStart, finalSelectionEnd);
+  }, [finalSelectionStart, finalSelectionEnd, onSelectionChange]);
 
   useEffect(() => {
     if (dragTarget) {
@@ -80,9 +99,9 @@ export default function AudioSelector({
           position: "relative",
           height: "40px",
           backgroundColor: "gray.200",
-          borderRadius: "md",
           my: "4",
-          w: "370px",
+          w: "calc(100% - 20px)",
+          margin: "0 10px",
         })}
       >
         {/* 선택 구간 */}
@@ -90,11 +109,13 @@ export default function AudioSelector({
           className={css({
             position: "absolute",
             top: 0,
-            height: "100%",
-            left: `${startPercent}%`,
-            width: `${endPercent - startPercent}%`,
+            bottom: 0,
             bg: "blue.100",
           })}
+          style={{
+            left: `${startPercent}%`,
+            width: `${endPercent - startPercent}%`,
+          }}
         />
         {/* 현재 재생 위치 */}
         <div
@@ -102,42 +123,42 @@ export default function AudioSelector({
             position: "absolute",
             top: 0,
             bottom: 0,
-            left: `${progressPercent}%`,
             width: "2px",
             bg: "red.500",
           })}
+          style={{
+            left: `${progressPercent}%`,
+          }}
         />
         {/* 좌측 핸들 */}
         <div
           onMouseDown={handleMouseDown("start")}
           className={css({
             position: "absolute",
-            top: "-6px",
-            left: `${startPercent}%`,
-            transform: "translateX(-50%)",
-            width: "0",
-            height: "0",
-            borderLeft: "6px solid transparent",
-            borderRight: "6px solid transparent",
-            borderBottom: "10px solid blue.600",
+            top: 0,
+            bottom: 0,
+            width: "2px",
+            backgroundColor: "blue.600",
             cursor: "ew-resize",
           })}
+          style={{
+            left: `${startPercent}%`,
+          }}
         />
         {/* 우측 핸들 */}
         <div
           onMouseDown={handleMouseDown("end")}
           className={css({
             position: "absolute",
-            top: "-6px",
-            left: `${endPercent}%`,
-            transform: "translateX(-50%)",
-            width: "0",
-            height: "0",
-            borderLeft: "6px solid transparent",
-            borderRight: "6px solid transparent",
-            borderBottom: "10px solid blue.600",
+            top: 0,
+            bottom: 0,
+            width: "2px",
+            backgroundColor: "blue.600",
             cursor: "ew-resize",
           })}
+          style={{
+            left: `${endPercent}%`,
+          }}
         />
       </div>
 
@@ -148,7 +169,7 @@ export default function AudioSelector({
           textAlign: "center",
         })}
       >
-        {formatTime(selectionStart)} ~ {formatTime(selectionEnd)}
+        {/* {formatTime(selectionStart)} ~ {formatTime(selectionEnd)} */}
       </div>
     </div>
   );

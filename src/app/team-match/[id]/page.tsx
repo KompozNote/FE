@@ -1,4 +1,8 @@
+"use client";
 import { css } from "@/../../styled-system/css";
+import Button from "@/components/Buttons/Button";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 // 동적 라우팅 파라미터 가져오기
 type Props = {
@@ -20,7 +24,7 @@ const mockData = {
 };
 
 export default function TeamMatchDetailPage({ params }: Props) {
-  const { id } = params;
+  const { id } = useParams();
 
   const { title, content, Hashtag, PeopleInvolved } = mockData;
 
@@ -29,10 +33,8 @@ export default function TeamMatchDetailPage({ params }: Props) {
       className={css({
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
+        overflowY: "auto",
         padding: "16px",
-        maxWidth: "400px",
-        margin: "0 auto",
         gap: "24px",
         paddingBottom: "80px", // 버튼 영역 확보
       })}
@@ -52,7 +54,7 @@ export default function TeamMatchDetailPage({ params }: Props) {
             flexDirection: "column",
             alignItems: "flex-start",
             width: "100%",
-            minHeight: "15em", // 기존 25vh -> 15em으로 변경
+            minHeight: "25vh",
             overflow: "hidden",
           })}
         >
@@ -126,7 +128,7 @@ export default function TeamMatchDetailPage({ params }: Props) {
             flexDirection: "column",
             alignItems: "flex-start",
             width: "100%",
-            minHeight: "15em", // 기존 25vh -> 15em으로 변경
+            minHeight: "25vh", // 화면 높이의 25%를 차지
           })}
         >
           <span
@@ -173,26 +175,20 @@ export default function TeamMatchDetailPage({ params }: Props) {
             ))}
           </div>
         </div>
+        <div
+          className={css({
+            display: "flex",
+            justifyContent: "center", // 가로 가운데 정렬
+            mt: "4", // 여백
+          })}
+        >
+          <Link href={`/team-match/${params.id}/chat`}>
+            <Button size="md" variant="primary">
+              Join in
+            </Button>
+          </Link>
+        </div>
       </div>
-
-      {/* Join Button */}
-      <button
-        className={css({
-          position: "fixed",
-          bottom: "0",
-          width: "100%",
-          maxWidth: "400px",
-          padding: "12px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          borderRadius: "5px",
-          fontWeight: "bold",
-          textAlign: "center",
-          cursor: "pointer",
-        })}
-      >
-        Join in
-      </button>
     </div>
   );
 }

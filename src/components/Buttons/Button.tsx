@@ -1,66 +1,75 @@
 "use client";
 
-import { css } from "@/../../styled-system/css";
-import { cva } from "@/../../styled-system/css";
-import React from "react";
+import { styled } from "../../../styled-system/jsx";
 
-type ButtonProps = {
-  variant?: "primary" | "ghost" | "icon" | "join" | "plus" | "back";
-  size?: "sm" | "md" | "lg";
-  icon?: React.ReactNode;
-  children?: React.ReactNode;
-  onClickFunc?: () => void;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-// ✨ Panda용 스타일 정의 (cva = class variance authority)
-const buttonStyle = cva({
+const Button = styled("button", {
   base: {
-    rounded: "xl",
-    fontWeight: "medium",
-    transition: "all",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "2",
+    gap: "0.5rem",
+    borderRadius: "0.75rem",
+    fontWeight: "500",
+    transition: "all 0.2s",
   },
   variants: {
     size: {
-      sm: { px: "2", py: "1", fontSize: "sm" },
-      md: { px: "4", py: "2", fontSize: "base" },
-      lg: { px: "6", py: "3", fontSize: "lg" },
+      sm: {
+        padding: "0.25rem 0.5rem",
+        fontSize: "0.875rem",
+      },
+      md: {
+        padding: "0.5rem 1rem",
+        fontSize: "1rem",
+      },
+      lg: {
+        padding: "0.75rem 1.5rem",
+        fontSize: "1.125rem",
+      },
     },
     variant: {
       primary: {
-        p: "15px 170px",
-        bg: "gray.200",
-        color: "black",
-        _hover: { bg: "gray.400" },
+        backgroundColor: "#3b82f6",
+        color: "white",
+        _hover: {
+          backgroundColor: "#2563eb",
+        },
       },
       ghost: {
-        bg: "transparent",
-        color: "gray.700",
-        _hover: { bg: "gray.100" },
+        backgroundColor: "transparent",
+        color: "#374151",
+        _hover: {
+          backgroundColor: "#f3f4f6",
+        },
       },
       icon: {
-        p: "2",
-        bg: "gray.200",
-        borderRadius: "full",
-        _hover: { bg: "gray.300" },
+        padding: "0.5rem",
+        backgroundColor: "#e5e7eb",
+        borderRadius: "9999px",
+        _hover: {
+          backgroundColor: "#d1d5db",
+        },
       },
       join: {
-        bg: "green.600",
+        backgroundColor: "#10b981",
         color: "white",
-        _hover: { bg: "green.700" },
+        _hover: {
+          backgroundColor: "#059669",
+        },
       },
       plus: {
-        bg: "neutral.800",
+        backgroundColor: "#171717",
         color: "white",
-        _hover: { bg: "neutral.700" },
+        _hover: {
+          backgroundColor: "#262626",
+        },
       },
       back: {
-        bg: "red.600",
+        backgroundColor: "#ef4444",
         color: "white",
-        _hover: { bg: "red.700" },
+        _hover: {
+          backgroundColor: "#dc2626",
+        },
       },
     },
   },
@@ -70,22 +79,4 @@ const buttonStyle = cva({
   },
 });
 
-export default function Button({
-  variant = "primary",
-  size = "md",
-  icon,
-  children,
-  onClickFunc,
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      onClick={onClickFunc || (() => {})}
-      className={buttonStyle({ variant, size })}
-      {...props}
-    >
-      {icon}
-      {children}
-    </button>
-  );
-}
+export default Button;

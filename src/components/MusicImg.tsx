@@ -1,4 +1,6 @@
 import React from "react";
+import style from "./MusicImg.module.css";
+import Image from "next/image";
 import { css } from "@/../../styled-system/css";
 
 interface MusicImgProps {
@@ -21,18 +23,7 @@ const MusicImg: React.FC<MusicImgProps> = ({ src, alt = "Music Cover" }) => {
       })}
     >
       {src ? (
-        <img
-          className={css({
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          })}
-          src={src}
-          alt={alt}
-        />
+        <Image className={style.music_img} src={src} alt={alt} />
       ) : (
         <div
           className={css({

@@ -3,7 +3,6 @@
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import Button from "@/components/Buttons/Button";
 
 export default function HelpFollowPage() {

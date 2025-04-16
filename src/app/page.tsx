@@ -1,37 +1,65 @@
 "use client";
-import { css } from "../../styled-system/css";
-import Button from "@/components/Buttons/Button";
-import { FaCode } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import { LuPlus, LuArrowLeft } from "react-icons/lu";
-import SongPlayer from "@/components/SongPlayer/SongPlayer";
-import SongProgressBar from "@/components/SongPlayer/SongProgressBar";
-import AudioSelector from "@/components/Audio/AudioPlayer";
 
+import { css } from "../../styled-system/css";
+import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
   return (
-    <div
+    <main
       className={css({
         display: "flex",
         flexDirection: "column",
-        fontSize: "10em",
         fontWeight: "bold",
         justifyContent: "center",
         alignItems: "center",
         gap: "0.1em",
       })}
     >
-
-
-      <AudioSelector
-        duration={0}
-        currentTime={300}
-        onSelectionChange={() => {}}
-      />
-      <SongProgressBar duration={0} currentTime={300} onSeek={() => {}} />
-      <SongPlayer />
-    </div>
+      <div>Hello World!</div>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/help/1"
+      >
+        Help
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/help/1/feedback"
+      >
+        Help Feedback
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/team-match/1"
+      >
+        Team Match
+      </Link>
+      <Link
+        className={css({
+          padding: "0.5em 1em",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          borderRadius: "0.5em",
+        })}
+        href="/team-match/1/chat"
+      >
+        Team Match Chat
+      </Link>
+    </main>
   );
 }

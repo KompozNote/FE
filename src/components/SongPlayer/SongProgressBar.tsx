@@ -1,8 +1,9 @@
+// src/components/SongPlayer/SongProgressBar.tsx
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { css } from "../../../styled-system/css";
-import { flex } from "../../../styled-system/patterns";
+import { useRef, useState } from "react";
+import { css } from "@/../../styled-system/css";
+import { flex } from "@/../../styled-system/patterns";
 
 interface SongProgressBarProps {
   currentTime: number;
@@ -17,31 +18,35 @@ export default function SongProgressBar({
 }: SongProgressBarProps) {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragProgress, setDragProgress] = useState<number | null>(null);
 
   const formatTime = (time: number) => {
     if (isNaN(time)) return "0:00";
-
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progress =
+    dragProgress ?? (duration > 0 ? (currentTime / duration) * 100 : 0);
 
   const handleSeek = (clientX: number) => {
-    if (!progressBarRef.current) return;
+    if (!progressBarRef.current || duration <= 0) return;
 
     const rect = progressBarRef.current.getBoundingClientRect();
     const percent = Math.min(
       Math.max(0, (clientX - rect.left) / rect.width),
       1
     );
+    setDragProgress(percent * 100);
     onSeek(percent * duration);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     handleSeek(e.clientX);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -52,19 +57,10 @@ export default function SongProgressBar({
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    setDragProgress(null);
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
   };
-
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging]);
 
   return (
     <div className={css({ mb: "2" })}>
@@ -89,11 +85,12 @@ export default function SongProgressBar({
             h: "100%",
             bg: "gray.600",
             borderRadius: "full",
-            w: `${progress}%`,
+            width: `${progress}%`,
             transition: isDragging ? "none" : "width 0.1s ease-in-out",
           })}
         />
         <div
+          onMouseDown={handleMouseDown}
           className={css({
             position: "absolute",
             h: "12px",
@@ -109,29 +106,21 @@ export default function SongProgressBar({
               w: "14px",
               left: `calc(${progress}% - 7px)`,
             },
+            cursor: "pointer",
           })}
         />
       </div>
+
       <div
         className={flex({
           justify: "space-between",
           align: "center",
         })}
       >
-        <span
-          className={css({
-            fontSize: "xs",
-            color: "gray.600",
-          })}
-        >
+        <span className={css({ fontSize: "xs", color: "gray.600" })}>
           {formatTime(currentTime)}
         </span>
-        <span
-          className={css({
-            fontSize: "xs",
-            color: "gray.600",
-          })}
-        >
+        <span className={css({ fontSize: "xs", color: "gray.600" })}>
           {formatTime(duration)}
         </span>
       </div>

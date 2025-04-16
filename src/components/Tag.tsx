@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { css } from "@/../../styled-system/css";
-import { LuX, LuPlus } from "react-icons/lu";
 import Button from "./Buttons/Button";
 
 interface TagProps {
