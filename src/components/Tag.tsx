@@ -81,7 +81,6 @@ const Tag: React.FC<TagProps> = ({
                   cursor: "pointer",
                   color: "#888",
                 })}
-                icon={<LuX />}
                 onClick={() => handleRemoveTag(tag)}
               />
             )}
@@ -118,7 +117,6 @@ const Tag: React.FC<TagProps> = ({
                 fontSize: "14px",
                 cursor: "pointer",
               })}
-              icon={<LuPlus />}
               onClick={handleAddTag}
             />
           </div>

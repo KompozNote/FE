@@ -52,7 +52,7 @@ export default function TeamMatchDetailPage({ params }: Props) {
             flexDirection: "column",
             alignItems: "flex-start",
             width: "100%",
-            minHeight: "25vh",
+            minHeight: "15em", // 기존 25vh -> 15em으로 변경
             overflow: "hidden",
           })}
         >
@@ -126,7 +126,7 @@ export default function TeamMatchDetailPage({ params }: Props) {
             flexDirection: "column",
             alignItems: "flex-start",
             width: "100%",
-            minHeight: "25vh", // 화면 높이의 25%를 차지
+            minHeight: "15em", // 기존 25vh -> 15em으로 변경
           })}
         >
           <span

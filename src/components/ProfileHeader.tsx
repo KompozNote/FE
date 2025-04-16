@@ -36,7 +36,6 @@ const ProfileHeader: React.FC = () => {
             fontSize: "24px",
             cursor: "pointer",
           })}
-          icon={<LuX />}
         />
       </div>
     </header>
