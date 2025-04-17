@@ -52,7 +52,7 @@ export default function HelpFollowPage() {
       <div
         className={css({
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
           padding: "8px 16px",
@@ -68,6 +68,18 @@ export default function HelpFollowPage() {
           })}
         >
           &lt;
+        </button>
+        <button
+          onClick={() => router.push("/help/new/follow/tag")}
+          className={css({
+            backgroundColor: "transparent",
+            border: "none",
+            fontSize: "16px",
+            fontWeight: "bold",
+            cursor: "pointer",
+          })}
+        >
+          Next
         </button>
       </div>
 
@@ -141,7 +153,7 @@ export default function HelpFollowPage() {
               paddingLeft: "4px",
             })}
           >
-            Link
+            This is what I meant!
           </h4>
           <button
             onClick={handleAddLink}
@@ -219,25 +231,6 @@ export default function HelpFollowPage() {
           ))}
         </div>
       </div>
-
-      {/* 등록 버튼 */}
-      <Button
-        onClick={handleSubmit}
-        size="lg"
-        variant="primary"
-        className={css({
-          width: "100%", // 버튼이 화면 너비를 차지하도록 설정
-          backgroundColor: "#007bff",
-          color: "#fff",
-          fontSize: "16px",
-          fontWeight: "bold",
-          textAlign: "center",
-          border: "none",
-          cursor: "pointer",
-        })}
-      >
-        Submit
-      </Button>
     </div>
   );
 }
