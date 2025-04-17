@@ -1,4 +1,3 @@
-"use client";
 import { css } from "@/../../styled-system/css";
 import Button from "@/components/Buttons/Button";
 import Link from "next/link";
