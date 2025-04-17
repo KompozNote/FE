@@ -4,10 +4,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 // 동적 라우팅 파라미터 가져오기
-type Props = {
-  params: { id: string };
-};
-
 const mockData = {
   id: 1,
   title: "Sample Title",
@@ -22,7 +18,7 @@ const mockData = {
   ],
 };
 
-export default function TeamMatchDetailPage({ params }: Props) {
+export default function TeamMatchDetailPage() {
   const { id } = useParams();
 
   const { title, content, Hashtag, PeopleInvolved } = mockData;
@@ -181,7 +177,7 @@ export default function TeamMatchDetailPage({ params }: Props) {
             mt: "4", // 여백
           })}
         >
-          <Link href={`/team-match/${params.id}/chat`}>
+          <Link href={`/team-match/${id}/chat`}>
             <Button size="md" variant="primary">
               Join in
             </Button>
