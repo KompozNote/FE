@@ -1425,7 +1425,7 @@
 
 "@pandacss/dev@^0.53.3":
   version "0.53.3"
-  resolved "https://registry.npmjs.org/@pandacss/dev/-/dev-0.53.3.tgz"
+  resolved "https://registry.yarnpkg.com/@pandacss/dev/-/dev-0.53.3.tgz#ef74690bec686a416513af39d066838d647919c4"
   integrity sha512-ses8bYFGEz1CNeB7SYCKAixoOcqAczZfNxGYPSYqVqnhcii1Fobw7xkWwipHcMsdHcOBZSp3bxSegMpKirD7kA==
   dependencies:
     "@clack/prompts" "0.9.1"
