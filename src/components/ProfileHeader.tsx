@@ -2,9 +2,10 @@ import React from "react";
 import { css } from "@/../../styled-system/css";
 import ProfileImg from "./ProfileImg";
 import Button from "./Buttons/Button";
-import { LuX } from "react-icons/lu";
+import { useRouter } from "next/navigation";
 
 const ProfileHeader: React.FC = () => {
+  const router = useRouter();
   return (
     <div
       className={css({
@@ -33,14 +34,16 @@ const ProfileHeader: React.FC = () => {
           Profile
         </h1>
         <Button
+          onClick={() => router.back()}
           className={css({
             background: "none",
             border: "none",
             fontSize: "24px",
             cursor: "pointer",
           })}
-          icon={<LuX />}
-        />
+        >
+          X
+        </Button>
       </div>
     </div>
   );

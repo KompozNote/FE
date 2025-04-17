@@ -1,15 +1,7 @@
-"use client";
-import ProfileHeader from "@/components/ProfileHeader";
-
-export default function HelpLayout({
+export default function TeamMatchLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <ProfileHeader />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
