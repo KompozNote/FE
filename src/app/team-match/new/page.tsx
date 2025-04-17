@@ -151,11 +151,13 @@ export default function HelpFollowPage() {
           className={css({
             width: "100%", // 버튼이 화면 너비를 차지하도록 설정
             backgroundColor: "#007bff",
+            borderRadius: "8px",
             color: "#fff",
             fontSize: "16px",
             fontWeight: "bold",
             textAlign: "center",
             border: "none",
+            padding: "6px",
             cursor: "pointer",
           })}
         >
