@@ -15,9 +15,14 @@ export default function HelpPostPage() {
     <div>
       {step === "upload" && <Mp3PostPage />}
       {step === "edit" && <EditPage />}
-      {step === "title" && <InputPostPage />}
+      {step === "title" && (
+        <InputPostPage
+          title="Music Title"
+          nextStepUrl="/post/help?step=singer"
+        />
+      )}
       {step === "content" && <PicturePostPage />}
-      {step === "reference" && <ContentPostPage />}
+      {step === "reference" && <ContentPostPage showLinks={true} />}
     </div>
   );
 }

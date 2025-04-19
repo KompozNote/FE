@@ -42,13 +42,10 @@ const Button = styled("button", {
           backgroundColor: "#f3f4f6",
         },
       },
+      // 상태변화 유지가 필요없는 아이콘
       icon: {
         padding: "0.5rem",
-        backgroundColor: "#e5e7eb",
-        borderRadius: "9999px",
-        _hover: {
-          backgroundColor: "#d1d5db",
-        },
+        borderRadius: "500px",
       },
       join: {
         backgroundColor: "#10b981",

@@ -4,7 +4,8 @@ import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Tag from "@/components/Tag";
-
+import Header from "@/components/Header";
+import Button from "@/components/Buttons/Button";
 export default function HashtagPostPage() {
   const router = useRouter();
 
@@ -88,33 +89,12 @@ export default function HashtagPostPage() {
         justifyContent: "flex-start",
         alignItems: "center",
         height: "100vh",
-        padding: "16px",
+        padding: "30px 16px",
         gap: "16px",
         backgroundColor: "#fff",
       })}
     >
-      {/* 상단 Navigation */}
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          padding: "8px 16px",
-        })}
-      >
-        <button
-          onClick={() => router.back()}
-          className={css({
-            backgroundColor: "transparent",
-            border: "none",
-            fontSize: "16px",
-            cursor: "pointer",
-          })}
-        >
-          &lt;
-        </button>
-      </div>
+      <Header />
 
       {/* 태그 섹션 */}
       <div
@@ -171,23 +151,7 @@ export default function HashtagPostPage() {
       </div>
 
       {/* 등록 버튼 */}
-      <button
-        onClick={handleSubmit}
-        className={css({
-          width: "100%",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          borderTopRadius: "8px",
-          padding: "12px",
-          fontSize: "16px",
-          fontWeight: "bold",
-          textAlign: "center",
-          border: "none",
-          cursor: "pointer",
-        })}
-      >
-        Submit
-      </button>
+      <Button onClick={handleSubmit}>Submit</Button>
     </div>
   );
 }

@@ -102,18 +102,7 @@ const Tag: React.FC<TagProps> = ({
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
             />
-            <Button
-              className={css({
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "16px",
-                padding: "8px 12px",
-                fontSize: "14px",
-                cursor: "pointer",
-              })}
-              onClick={handleAddTag}
-            >
+            <Button variant="icon" onClick={handleAddTag}>
               +
             </Button>
           </div>
@@ -143,21 +132,7 @@ const Tag: React.FC<TagProps> = ({
           >
             {tag}
             {editable && (
-              <Button
-                className={css({
-                  background: "none",
-                  borderRadius: "50%",
-                  border: "none",
-                  width: "20px",
-                  height: "20px",
-                  fontSize: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                })}
-                onClick={() => handleRemoveTag(tag)}
-              >
+              <Button variant="icon" onClick={() => handleRemoveTag(tag)}>
                 -
               </Button>
             )}
