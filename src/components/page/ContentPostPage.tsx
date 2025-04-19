@@ -3,9 +3,8 @@
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Button from "@/components/Buttons/Button";
 
-export default function HelpFollowPage() {
+export default function ContentPostPage() {
   const router = useRouter();
   const [links, setLinks] = useState<string[]>([""]); // 링크 입력 필드 상태
 
@@ -70,7 +69,7 @@ export default function HelpFollowPage() {
           &lt;
         </button>
         <button
-          onClick={() => router.push("/help/new/follow/tag")}
+          onClick={() => router.push("/post/help?step=edit")}
           className={css({
             backgroundColor: "transparent",
             border: "none",

@@ -3,7 +3,7 @@
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 
-export default function HelpNewPage() {
+export default function PicturePostPage() {
   const router = useRouter();
 
   // Mock 데이터: 갤러리 이미지
@@ -66,7 +66,7 @@ export default function HelpNewPage() {
           &lt;
         </button>
         <button
-          onClick={() => router.push("/help/new/follow")}
+          onClick={() => router.push("/post/help/upload")}
           className={css({
             backgroundColor: "transparent",
             border: "none",

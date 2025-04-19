@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Tag from "@/components/Tag";
 
-export default function SelectTagPage() {
+export default function HashtagPostPage() {
   const router = useRouter();
 
   // 각 카테고리별 태그 상태
