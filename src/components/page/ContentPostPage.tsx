@@ -9,11 +9,15 @@ import Text from "../Text";
 type ContentPostPageProps = {
   showLinks?: boolean;
   titleText?: string;
+  basePath: string;
+  nextStepUrl?: string;
 };
 
 export default function ContentPostPage({
   showLinks = true,
   titleText = "This is what I meant!",
+  basePath,
+  nextStepUrl,
 }: ContentPostPageProps) {
   const router = useRouter();
   const [links, setLinks] = useState<string[]>([""]);
@@ -52,7 +56,7 @@ export default function ContentPostPage({
         backgroundColor: "#fff",
       })}
     >
-      <Header nextStepUrl="/post/help?step=edit" />
+      <Header nextStepUrl={`/post/${basePath}?step=${nextStepUrl}`} />
 
       <div
         className={css({
@@ -70,7 +74,6 @@ export default function ContentPostPage({
         <TitleInput />
         <ContentInput />
 
-        {/* 🔽 링크 입력 영역은 조건부로! */}
         {showLinks && (
           <>
             <div

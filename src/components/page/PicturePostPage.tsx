@@ -3,7 +3,13 @@
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
-export default function PicturePostPage() {
+export default function PicturePostPage({
+  basePath,
+  nextStepUrl,
+}: {
+  basePath: string;
+  nextStepUrl?: string;
+}) {
   const router = useRouter();
 
   // Mock 데이터: 갤러리 이미지

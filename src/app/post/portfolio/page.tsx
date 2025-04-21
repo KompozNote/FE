@@ -11,16 +11,17 @@ export default function PortfolioPostPage() {
 
   return (
     <div>
-      {step === "upload" && <Mp3PostPage />}
-      {step === "edit" && <EditPage />}
+      {step === "upload" && <Mp3PostPage basePath="portfolio" />}
+      {step === "edit" && <EditPage basePath="portfolio" />}
       {step === "title" && (
         <InputPostPage
           title="Music Title"
-          nextStepUrl="/post/help?step=singer"
+          basePath="portfolio"
+          nextStepUrl="singer"
         />
       )}
       {step === "singer" && (
-        <InputPostPage title="Singer" nextStepUrl="/post/help?step=content" />
+        <InputPostPage title="Singer" basePath="portfolio" />
       )}
     </div>
   );

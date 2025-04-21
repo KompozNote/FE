@@ -2,7 +2,7 @@
 "use client";
 
 import { css } from "../../styled-system/css";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import BackButton from "../../public/backButton.svg";
 import Button from "./Buttons/Button";
 
@@ -15,8 +15,6 @@ export default function Header({
   nextStepUrl,
   nextText = "Next",
 }: HeaderProps) {
-  const router = useRouter();
-
   return (
     <div
       className={css({
@@ -27,14 +25,14 @@ export default function Header({
         paddingRight: "16px",
       })}
     >
-      <Button variant="icon">
+      <Button variant="icon" onClick={() => window.history.back()}>
         {" "}
         <BackButton />
       </Button>
 
       {nextStepUrl && (
-        <button
-          onClick={() => router.push(nextStepUrl)}
+        <Link
+          href={nextStepUrl}
           className={css({
             backgroundColor: "transparent",
             border: "none",
@@ -44,7 +42,7 @@ export default function Header({
           })}
         >
           {nextText}
-        </button>
+        </Link>
       )}
     </div>
   );

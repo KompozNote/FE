@@ -6,7 +6,11 @@ import { useState } from "react";
 import Tag from "@/components/Tag";
 import Header from "@/components/Header";
 import Button from "@/components/Buttons/Button";
-export default function HashtagPostPage() {
+export default function HashtagPostPage({
+  nextStepUrl,
+}: {
+  nextStepUrl?: string;
+}) {
   const router = useRouter();
 
   // 각 카테고리별 태그 상태
@@ -88,13 +92,13 @@ export default function HashtagPostPage() {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        height: "100vh",
+        height: "100%",
         padding: "30px 16px",
         gap: "16px",
         backgroundColor: "#fff",
       })}
     >
-      <Header />
+      <Header nextStepUrl={`/`} />
 
       {/* 태그 섹션 */}
       <div

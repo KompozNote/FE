@@ -10,13 +10,15 @@ export default function HelpPostPage() {
 
   return (
     <div>
-      {step === "hashtag" && <HashtagPostPage />}
       {step === "content" && (
         <ContentPostPage
+          basePath="team-match"
           showLinks={false}
           titleText="Who would you like to team up with?"
+          nextStepUrl="hashtag"
         />
-      )}
+      )}{" "}
+      {step === "hashtag" && <HashtagPostPage />}
     </div>
   );
 }

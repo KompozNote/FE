@@ -8,7 +8,6 @@ const Button = styled("button", {
     alignItems: "center",
     justifyContent: "center",
     gap: "0.5rem",
-    borderRadius: "0.75rem",
     fontWeight: "500",
     transition: "all 0.2s",
   },

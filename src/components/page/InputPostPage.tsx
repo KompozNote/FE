@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import TitleInput from "../Input/TitleInput";
 import { css } from "../../../styled-system/css";
 import Header from "../Header";
@@ -6,15 +5,15 @@ import Text from "../Text";
 
 type InputPostPageProps = {
   title: string;
-  nextStepUrl: string;
+  basePath: string;
+  nextStepUrl?: string;
 };
 
 export default function InputPostPage({
   title,
+  basePath,
   nextStepUrl,
 }: InputPostPageProps) {
-  const router = useRouter();
-
   return (
     <div
       className={css({
@@ -28,7 +27,7 @@ export default function InputPostPage({
         backgroundColor: "#fff",
       })}
     >
-      <Header nextStepUrl={nextStepUrl} />
+      <Header nextStepUrl={`/post/${basePath}?step=${nextStepUrl}`} />
 
       <div
         className={css({
