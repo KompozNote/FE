@@ -2,8 +2,14 @@
 
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
-
-export default function PicturePostPage() {
+import Header from "@/components/Header";
+export default function PicturePostPage({
+  basePath,
+  nextStepUrl,
+}: {
+  basePath: string;
+  nextStepUrl?: string;
+}) {
   const router = useRouter();
 
   // Mock 데이터: 갤러리 이미지
@@ -32,54 +38,9 @@ export default function PicturePostPage() {
   };
 
   return (
-    <div
-      className={css({
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: "100vh",
-        padding: "16px",
-        gap: "16px",
-        backgroundColor: "#fff",
-      })}
-    >
-      {/* 상단 Navigation */}
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          padding: "8px 16px",
-        })}
-      >
-        <button
-          onClick={() => router.back()}
-          className={css({
-            backgroundColor: "transparent",
-            border: "none",
-            fontSize: "16px",
-            cursor: "pointer",
-          })}
-        >
-          &lt;
-        </button>
-        <button
-          onClick={() => router.push("/post/help/upload")}
-          className={css({
-            backgroundColor: "transparent",
-            border: "none",
-            fontSize: "16px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          })}
-        >
-          Next
-        </button>
-      </div>
+    <>
+      <Header nextStepUrl="/post/help?step=reference" />
 
-      {/* 큰 이미지 영역 */}
       <div
         className={css({
           width: "100%",
@@ -194,6 +155,6 @@ export default function PicturePostPage() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }

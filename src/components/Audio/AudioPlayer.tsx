@@ -98,10 +98,11 @@ export default function AudioSelector({
         className={css({
           position: "relative",
           height: "40px",
+          width: "100%",
           backgroundColor: "gray.200",
-          my: "4",
-          w: "calc(100% - 20px)",
-          margin: "0 10px",
+          // my: "4",
+          // w: "calc(100% - 20px)",
+          // margin: "0 10px",
         })}
       >
         {/* 선택 구간 */}
