@@ -22,7 +22,7 @@ const Button = styled("button", {
         fontSize: "1rem",
       },
       lg: {
-        padding: "0.75rem 1.5rem",
+        padding: "0.5rem 10.5rem",
         fontSize: "1.125rem",
       },
     },

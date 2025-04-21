@@ -155,7 +155,13 @@ export default function HashtagPostPage({
       </div>
 
       {/* 등록 버튼 */}
-      <Button onClick={handleSubmit}>Submit</Button>
+      <Button
+        size="md"
+        onClick={handleSubmit}
+        className={css({ width: "100%" })}
+      >
+        Submit
+      </Button>
     </div>
   );
 }

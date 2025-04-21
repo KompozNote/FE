@@ -62,7 +62,6 @@ export default function Help({ params }: Props) {
         flexDirection: "column",
         padding: "1em",
         gap: "1em",
-        flex: 1,
         overflowY: "auto",
       })}
     >
@@ -134,10 +133,11 @@ export default function Help({ params }: Props) {
             mt: "4", // 여백
           })}
         >
-          <Link href={`/help/${params.id}/feedback`}>
-            <Button size="md" variant="primary">
-              Help
-            </Button>
+          <Link
+            href={`/help/${params.id}/feedback`}
+            className={css({ width: "100%" })}
+          >
+            <Button className={css({ width: "100%" })}>Help</Button>
           </Link>
         </div>
       </div>

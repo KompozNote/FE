@@ -34,6 +34,7 @@ const ProfileHeader: React.FC = () => {
           Profile
         </h1>
         <Button
+          variant="icon"
           onClick={() => router.back()}
           className={css({
             background: "none",
