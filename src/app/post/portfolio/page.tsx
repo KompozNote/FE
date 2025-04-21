@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Mp3PostPage from "@/components/page/Mp3PostPage";
 import EditPage from "@/components/page/EditPage";
 import InputPostPage from "@/components/page/InputPostPage";
+import HashtagPostPage from "@/components/page/HashtagPostPage";
 
 export default function PortfolioPostPage() {
   const params = useSearchParams();
@@ -21,8 +22,13 @@ export default function PortfolioPostPage() {
         />
       )}
       {step === "singer" && (
-        <InputPostPage title="Singer" basePath="portfolio" />
+        <InputPostPage
+          title="Singer"
+          basePath="portfolio"
+          nextStepUrl="hashtag"
+        />
       )}
+      {step === "hashtag" && <HashtagPostPage />}
     </div>
   );
 }
