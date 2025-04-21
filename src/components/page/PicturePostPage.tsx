@@ -38,7 +38,18 @@ export default function PicturePostPage({
   };
 
   return (
-    <>
+    <div
+      className={css({
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        height: "100vh",
+        padding: "30px 16px",
+        gap: "16px",
+        backgroundColor: "#fff",
+      })}
+    >
       <Header nextStepUrl="/post/help?step=reference" />
 
       <div
@@ -155,6 +166,6 @@ export default function PicturePostPage({
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

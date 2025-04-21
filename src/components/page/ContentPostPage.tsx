@@ -50,7 +50,7 @@ export default function ContentPostPage({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        height: "100vh",
+        height: "100%",
         padding: "30px 16px",
         gap: "16px",
         backgroundColor: "#fff",

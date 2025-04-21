@@ -1,12 +1,12 @@
 import { useRef } from "react";
+import { useAudioStore } from "@/stores/audioStores";
 import { css } from "../../../styled-system/css";
 import Button from "../Buttons/Button";
 import Header from "../Header";
 import Text from "../Text";
-
 export default function Mp3PostPage({ basePath }: { basePath: string }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const { file, setAudio, setDuration } = useAudioStore();
   const handleFileUpload = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -16,7 +16,15 @@ export default function Mp3PostPage({ basePath }: { basePath: string }) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log(file);
+      setAudio(file);
+      const url = URL.createObjectURL(file);
+      const audio = new Audio(url);
+      audio.addEventListener("loadedmetadata", () => {
+        const duration = audio.duration;
+        if (!isNaN(duration)) {
+          setDuration(duration);
+        }
+      });
     }
   };
 
@@ -27,7 +35,7 @@ export default function Mp3PostPage({ basePath }: { basePath: string }) {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        height: "100vh",
+        height: "100%",
         padding: "30px 16px",
         gap: "16px",
         backgroundColor: "#fff",
@@ -56,6 +64,12 @@ export default function Mp3PostPage({ basePath }: { basePath: string }) {
           onChange={handleFileChange}
         />
       </div>
+
+      {file && (
+        <div className={css({ color: "gray", fontSize: "sm" })}>
+          '{file.name}' is uploaded
+        </div>
+      )}
     </div>
   );
 }

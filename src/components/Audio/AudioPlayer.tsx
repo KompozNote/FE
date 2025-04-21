@@ -99,10 +99,8 @@ export default function AudioSelector({
           position: "relative",
           height: "40px",
           width: "100%",
+          maxWidth: "100%",
           backgroundColor: "gray.200",
-          // my: "4",
-          // w: "calc(100% - 20px)",
-          // margin: "0 10px",
         })}
       >
         {/* 선택 구간 */}
@@ -169,9 +167,7 @@ export default function AudioSelector({
           color: "blue",
           textAlign: "center",
         })}
-      >
-        {/* {formatTime(selectionStart)} ~ {formatTime(selectionEnd)} */}
-      </div>
+      ></div>
     </div>
   );
 }
