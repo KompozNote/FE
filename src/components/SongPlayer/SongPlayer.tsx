@@ -3,9 +3,9 @@
 
 import { css } from "@/../../styled-system/css";
 import { flex } from "@/../../styled-system/patterns";
-import PlayButton from "@/assets/playbutton.svg";
 import BackButton from "@/assets/backbutton.svg";
 import ForwardButton from "@/assets/forwardbutton.svg";
+import { HiPlay, HiPause } from "react-icons/hi";
 
 interface SongPlayerProps {
   isPlaying: boolean;
@@ -31,7 +31,25 @@ export default function SongPlayer({
         })}
       >
         <BackButton onClick={onBackward} direction="backward" />
-        <PlayButton isPlaying={isPlaying} onClick={onTogglePlay} />
+        <button onClick={onTogglePlay}>
+          {isPlaying ? (
+            <HiPause
+              className={css({
+                width: "70px",
+                height: "70px",
+                color: "#d9d9d9",
+              })}
+            />
+          ) : (
+            <HiPlay
+              className={css({
+                width: "70px",
+                height: "70px",
+                color: "#d9d9d9",
+              })}
+            />
+          )}
+        </button>
         <ForwardButton onClick={onForward} direction="forward" />
       </div>
     </div>

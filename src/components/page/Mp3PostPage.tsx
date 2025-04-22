@@ -59,6 +59,7 @@ export default function Mp3PostPage({ basePath }: { basePath: string }) {
         <Button onClick={handleFileUpload}>Upload</Button>
         <input
           type="file"
+          accept="audio/*"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileChange}
