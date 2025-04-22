@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { css } from "@/../../styled-system/css";
-import { LuX, LuPlus } from "react-icons/lu";
 import Button from "./Buttons/Button";
 
 interface TagProps {
   category?: string;
   tags: string[];
+  predefinedTags?: string[];
   editable?: boolean;
   onChange?: (tags: string[]) => void;
 }
@@ -13,6 +13,7 @@ interface TagProps {
 const Tag: React.FC<TagProps> = ({
   category,
   tags,
+  predefinedTags = [],
   editable = false,
   onChange,
 }) => {
@@ -28,24 +29,25 @@ const Tag: React.FC<TagProps> = ({
     }
   };
 
-  const handleRemoveTag = (tag: string) => {
-    const updatedTags = currentTags.filter((t) => t !== tag);
+  const handleToggleTag = (tag: string) => {
+    let updatedTags;
+    if (currentTags.includes(tag)) {
+      updatedTags = currentTags.filter((t) => t !== tag); // 태그 선택 해제
+    } else {
+      updatedTags = [...currentTags, tag]; // 태그 선택
+    }
     setCurrentTags(updatedTags);
     onChange?.(updatedTags);
   };
 
   return (
-    <div
-      className={css({
-        marginBottom: "16px",
-      })}
-    >
+    <div>
       {category && (
         <h3
           className={css({
             fontSize: "14px",
             fontWeight: "bold",
-            marginBottom: "8px",
+            marginBottom: "4px",
           })}
         >
           {category}
@@ -56,35 +58,30 @@ const Tag: React.FC<TagProps> = ({
           display: "flex",
           flexWrap: "wrap",
           gap: "8px",
+          gridTemplateColumns: "repeat(3, 1fr)", // 3개의 열로 구성
+          gridAutoRows: "1fr", // 행의 높이를 열의 비율에 맞게 설정
         })}
       >
-        {currentTags.map((tag, index) => (
+        {[
+          ...predefinedTags,
+          ...currentTags.filter((tag) => !predefinedTags.includes(tag)),
+        ].map((tag, index) => (
           <div
             key={index}
             className={css({
-              backgroundColor: "#e0e0e0",
-              padding: "8px 12px",
+              backgroundColor: currentTags.includes(tag)
+                ? "#007bff"
+                : "#e0e0e0",
+              color: currentTags.includes(tag) ? "#fff" : "#000",
+              padding: "6px 8px",
               borderRadius: "16px",
               fontSize: "14px",
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
+              cursor: "pointer",
+              height: "fit-content",
             })}
+            onClick={() => handleToggleTag(tag)}
           >
             {tag}
-            {editable && (
-              <Button
-                className={css({
-                  background: "none",
-                  border: "none",
-                  fontSize: "12px",
-                  cursor: "pointer",
-                  color: "#888",
-                })}
-                icon={<LuX />}
-                onClick={() => handleRemoveTag(tag)}
-              />
-            )}
           </div>
         ))}
         {editable && (
@@ -92,14 +89,15 @@ const Tag: React.FC<TagProps> = ({
             className={css({
               display: "flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "0.3em",
             })}
           >
             <input
               className={css({
                 border: "1px solid #ccc",
                 borderRadius: "16px",
-                padding: "8px 12px",
+                padding: "4px 0px",
+                paddingLeft: "12px",
                 fontSize: "14px",
               })}
               type="text"
@@ -109,18 +107,12 @@ const Tag: React.FC<TagProps> = ({
               onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
             />
             <Button
-              className={css({
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "16px",
-                padding: "8px 12px",
-                fontSize: "14px",
-                cursor: "pointer",
-              })}
-              icon={<LuPlus />}
+              variant="icon"
               onClick={handleAddTag}
-            />
+              className={css({ padding: "unset" })}
+            >
+              +
+            </Button>
           </div>
         )}
       </div>
