@@ -22,11 +22,7 @@ export default function PortfolioPostPage() {
         />
       )}
       {step === "singer" && (
-        <InputPostPage
-          title="Singer"
-          basePath="portfolio"
-          nextStepUrl="hashtag"
-        />
+        <InputPostPage title="Singer" basePath="portfolio" />
       )}
       {step === "hashtag" && <HashtagPostPage />}
     </div>
