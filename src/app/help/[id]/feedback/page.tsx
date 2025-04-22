@@ -9,9 +9,15 @@ import { notFound } from "next/navigation";
 import ChatWidget from "@/components/Chat/ChatWidget";
 import Image from "next/image";
 import Button from "@/components/Buttons/Button";
-import { formatDuration } from "@/utils/formatTime";
 type Props = {
   params: { id: string };
+};
+
+const formatTime = (seconds: number) => {
+  seconds = seconds | 0;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
 export default function HelpPage({ params }: Props) {
@@ -136,7 +142,7 @@ export default function HelpPage({ params }: Props) {
           {playing ? <LuPause /> : <LuPlay />}
         </Button>
         <span className={css({ fontSize: "sm", color: "gray.600" })}>
-          {formatDuration(currentTime)} / {formatDuration(duration)}
+          {formatTime(currentTime)} / {formatTime(duration)}
         </span>
       </div>
 

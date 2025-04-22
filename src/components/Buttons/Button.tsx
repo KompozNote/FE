@@ -8,6 +8,7 @@ const Button = styled("button", {
     alignItems: "center",
     justifyContent: "center",
     gap: "0.5rem",
+    borderRadius: "0.75rem",
     fontWeight: "500",
     transition: "all 0.2s",
   },
@@ -22,7 +23,7 @@ const Button = styled("button", {
         fontSize: "1rem",
       },
       lg: {
-        padding: "0.5rem 10.5rem",
+        padding: "0.75rem 1.5rem",
         fontSize: "1.125rem",
       },
     },
@@ -41,10 +42,13 @@ const Button = styled("button", {
           backgroundColor: "#f3f4f6",
         },
       },
-      // 상태변화 유지가 필요없는 아이콘
       icon: {
         padding: "0.5rem",
-        borderRadius: "500px",
+        backgroundColor: "#e5e7eb",
+        borderRadius: "9999px",
+        _hover: {
+          backgroundColor: "#d1d5db",
+        },
       },
       join: {
         backgroundColor: "#10b981",

@@ -60,39 +60,6 @@ export default function Home() {
       >
         Team Match Chat
       </Link>
-      <Link
-        className={css({
-          padding: "0.5em 1em",
-          backgroundColor: "#000000",
-          color: "#ffffff",
-          borderRadius: "0.5em",
-        })}
-        href="/post/help?step=upload"
-      >
-        Help Post
-      </Link>
-      <Link
-        className={css({
-          padding: "0.5em 1em",
-          backgroundColor: "#000000",
-          color: "#ffffff",
-          borderRadius: "0.5em",
-        })}
-        href="/post/portfolio?step=upload"
-      >
-        Portfolio Post
-      </Link>
-      <Link
-        className={css({
-          padding: "0.5em 1em",
-          backgroundColor: "#000000",
-          color: "#ffffff",
-          borderRadius: "0.5em",
-        })}
-        href="/post/team-match?step=content"
-      >
-        Team Match Post
-      </Link>
     </main>
   );
 }
