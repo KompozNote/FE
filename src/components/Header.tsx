@@ -25,7 +25,11 @@ export default function Header({
         paddingRight: "16px",
       })}
     >
-      <Button variant="icon" onClick={() => window.history.back()}>
+      <Button
+        variant="icon"
+        onClick={() => window.history.back()}
+        className={css({ cursor: "pointer" })}
+      >
         {" "}
         <BackButton />
       </Button>
