@@ -5,7 +5,7 @@ import Button from "./Buttons/Button";
 interface TagProps {
   category?: string;
   tags: string[];
-  predefinedTags?: string[]; // 미리 정의된 태그
+  predefinedTags?: string[];
   editable?: boolean;
   onChange?: (tags: string[]) => void;
 }
@@ -29,18 +29,15 @@ const Tag: React.FC<TagProps> = ({
     }
   };
 
-  const handleRemoveTag = (tag: string) => {
-    const updatedTags = currentTags.filter((t) => t !== tag);
+  const handleToggleTag = (tag: string) => {
+    let updatedTags;
+    if (currentTags.includes(tag)) {
+      updatedTags = currentTags.filter((t) => t !== tag); // 태그 선택 해제
+    } else {
+      updatedTags = [...currentTags, tag]; // 태그 선택
+    }
     setCurrentTags(updatedTags);
     onChange?.(updatedTags);
-  };
-
-  const handleSelectPredefinedTag = (tag: string) => {
-    if (!currentTags.includes(tag)) {
-      const updatedTags = [...currentTags, tag];
-      setCurrentTags(updatedTags);
-      onChange?.(updatedTags);
-    }
   };
 
   return (
@@ -61,9 +58,14 @@ const Tag: React.FC<TagProps> = ({
           display: "flex",
           flexWrap: "wrap",
           gap: "8px",
+          gridTemplateColumns: "repeat(3, 1fr)", // 3개의 열로 구성
+          gridAutoRows: "1fr", // 행의 높이를 열의 비율에 맞게 설정
         })}
       >
-        {predefinedTags.map((tag, index) => (
+        {[
+          ...predefinedTags,
+          ...currentTags.filter((tag) => !predefinedTags.includes(tag)),
+        ].map((tag, index) => (
           <div
             key={index}
             className={css({
@@ -71,12 +73,13 @@ const Tag: React.FC<TagProps> = ({
                 ? "#007bff"
                 : "#e0e0e0",
               color: currentTags.includes(tag) ? "#fff" : "#000",
-              padding: "8px 12px",
+              padding: "6px 8px",
               borderRadius: "16px",
               fontSize: "14px",
               cursor: "pointer",
+              height: "fit-content",
             })}
-            onClick={() => handleSelectPredefinedTag(tag)}
+            onClick={() => handleToggleTag(tag)}
           >
             {tag}
           </div>
@@ -86,14 +89,15 @@ const Tag: React.FC<TagProps> = ({
             className={css({
               display: "flex",
               alignItems: "center",
-              gap: "4px",
+              gap: "0.3em",
             })}
           >
             <input
               className={css({
                 border: "1px solid #ccc",
                 borderRadius: "16px",
-                padding: "8px 12px",
+                padding: "4px 0px",
+                paddingLeft: "12px",
                 fontSize: "14px",
               })}
               type="text"
@@ -102,42 +106,15 @@ const Tag: React.FC<TagProps> = ({
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
             />
-            <Button variant="icon" onClick={handleAddTag}>
+            <Button
+              variant="icon"
+              onClick={handleAddTag}
+              className={css({ padding: "unset" })}
+            >
               +
             </Button>
           </div>
         )}
-      </div>
-      <div
-        className={css({
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "8px",
-          marginTop: "8px",
-        })}
-      >
-        {currentTags.map((tag, index) => (
-          <div
-            key={index}
-            className={css({
-              backgroundColor: "#FFF",
-              padding: "8px 12px",
-              border: "1px solid #ccc",
-              borderRadius: "16px",
-              fontSize: "14px",
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
-            })}
-          >
-            {tag}
-            {editable && (
-              <Button variant="icon" onClick={() => handleRemoveTag(tag)}>
-                -
-              </Button>
-            )}
-          </div>
-        ))}
       </div>
     </div>
   );

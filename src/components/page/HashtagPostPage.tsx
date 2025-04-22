@@ -40,9 +40,9 @@ export default function HashtagPostPage({
       "Exuberant",
       "Energetic",
       "Frantic",
+      "Calm",
       "Anxious/Sad",
       "Depression",
-      "Calm",
       "Contentment",
     ],
     Step: [
@@ -66,9 +66,9 @@ export default function HashtagPostPage({
       "Creativity",
       "Communication",
       "Rhythmic",
+      "Sing",
       "Grasp music theory concepts",
       "Instrument playing",
-      "Sing",
     ],
   };
 

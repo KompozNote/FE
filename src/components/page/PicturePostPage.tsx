@@ -3,6 +3,8 @@
 import { css } from "@/../../styled-system/css";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
+import { useState, useRef } from "react";
+
 export default function PicturePostPage({
   basePath,
   nextStepUrl,
@@ -11,30 +13,39 @@ export default function PicturePostPage({
   nextStepUrl?: string;
 }) {
   const router = useRouter();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock 데이터: 갤러리 이미지
-  const galleryImages = [
-    "/images/sample1.jpg",
-    "/images/sample2.jpg",
-    "/images/sample3.jpg",
-    "/images/sample4.jpg",
-    "/images/sample5.jpg",
-    "/images/sample6.jpg",
-  ];
+  const handleOpenCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // 카메라 스트림을 처리하는 로직 추가 필요
+      // 예: 비디오 요소를 생성하고 스트림을 연결
+    } catch (err) {
+      console.error("카메라 접근 실패:", err);
+    }
+  };
 
   const handleOpenGallery = () => {
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*";
-    fileInput.multiple = true; // 여러 이미지 선택 가능
-    fileInput.onchange = (event) => {
-      const files = (event.target as HTMLInputElement).files;
-      if (files) {
-        console.log("Selected files:", files);
-        // 선택된 파일을 처리하는 로직 추가 가능
-      }
-    };
-    fileInput.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const newImages = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setGalleryImages((prev) => [...prev, ...newImages]);
+      setSelectedImage(newImages[0]);
+    }
+  };
+
+  const handleNavigation = () => {
+    router.push("/post/help?step=reference");
   };
 
   return (
@@ -44,9 +55,9 @@ export default function PicturePostPage({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        height: "100vh",
-        padding: "30px 16px",
-        gap: "16px",
+        height: "100%",
+        padding: "8px 10px",
+        gap: "4px",
         backgroundColor: "#fff",
       })}
     >
@@ -56,116 +67,122 @@ export default function PicturePostPage({
         className={css({
           width: "100%",
           height: "60%",
-          backgroundColor: "#e0e0e0",
+          backgroundColor: selectedImage ? "transparent" : "#e0e0e0",
           borderRadius: "4px",
-        })}
-      ></div>
-
-      {/* 하단 Navigation */}
-      <div
-        className={css({
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-          padding: "8px",
+          overflow: "hidden",
         })}
       >
-        <button
-          onClick={handleOpenGallery} // 갤러리 열기
-          className={css({
-            backgroundColor: "#e0e0e0",
-            border: "none",
-            borderRadius: "8px",
-            padding: "8px 16px",
-            fontSize: "14px",
-            cursor: "pointer",
-          })}
-        >
-          More &gt;
-        </button>
-        <button
-          onClick={() => router.push("/help/new/skip")}
-          className={css({
-            backgroundColor: "transparent",
-            color: "#AAA",
-            border: "none",
-            fontSize: "16px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          })}
-        >
-          Skip
-        </button>
+        {selectedImage && (
+          <img
+            src={selectedImage}
+            alt="Selected"
+            className={css({
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            })}
+          />
+        )}
       </div>
 
       {/* 갤러리 이미지 */}
       <div
         className={css({
-          flex: "1",
           width: "100%",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)", // 3열 그리드
-          gap: "8px",
-          padding: "16px",
+          flex: 1,
           backgroundColor: "#f9f9f9",
+          borderRadius: "4px",
+          padding: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
         })}
       >
-        {/* Camera 버튼 */}
+        {/* 이미지 그리드 */}
         <div
           className={css({
-            width: "100%",
-            paddingTop: "100%", // 정사각형 비율 유지
-            position: "relative",
-            backgroundColor: "#e0e0e0",
-            borderRadius: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "0.5rem",
+            overflowY: "auto",
           })}
-          onClick={() => router.push("/help/new/camera")} // 카메라 페이지로 이동
         >
-          <span
+          {/* Camera 버튼 */}
+          <div
             className={css({
-              fontSize: "16px",
+              aspectRatio: "1",
+              backgroundColor: "#e0e0e0",
+              borderRadius: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              fontSize: "1rem",
               fontWeight: "bold",
               color: "#555",
             })}
+            onClick={handleOpenCamera}
           >
             Camera
-          </span>
-        </div>
-
-        {/* 갤러리 이미지 */}
-        {galleryImages.map((src, index) => (
-          <div
-            key={index}
-            className={css({
-              width: "100%",
-              position: "relative",
-              backgroundColor: "#e0e0e0",
-              borderRadius: "8px",
-              overflow: "hidden",
-              cursor: "pointer",
-            })}
-            onClick={() => console.log(`Selected image: ${src}`)} // 이미지 선택 시 동작
-          >
-            <img
-              src={src}
-              alt={`Gallery Image ${index + 1}`}
-              className={css({
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              })}
-            />
           </div>
-        ))}
+
+          {/* More 버튼 */}
+          <div
+            className={css({
+              aspectRatio: "1",
+              backgroundColor: "#e0e0e0",
+              borderRadius: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              fontSize: "1rem",
+              fontWeight: "bold",
+              color: "#555",
+            })}
+            onClick={handleOpenGallery}
+          >
+            More &gt;
+          </div>
+
+          {galleryImages.map((src, index) => (
+            <div
+              key={index}
+              className={css({
+                aspectRatio: "1",
+                position: "relative",
+                borderRadius: "0.5rem",
+                overflow: "hidden",
+                cursor: "pointer",
+                border: selectedImage === src ? "2px solid #007bff" : "none",
+              })}
+              onClick={() =>
+                setSelectedImage((prev) => (prev === src ? null : src))
+              }
+            >
+              <img
+                src={src}
+                alt={`Gallery Image ${index + 1}`}
+                className={css({
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: selectedImage === src ? 0.8 : 1,
+                })}
+              />
+            </div>
+          ))}
+        </div>
       </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        multiple
+        onChange={handleImageSelect}
+        style={{ display: "none" }}
+      />
     </div>
   );
 }

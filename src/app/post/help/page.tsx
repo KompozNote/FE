@@ -13,7 +13,7 @@ export default function HelpPostPage() {
   const step = params.get("step") ?? "upload"; //null 값 뱉으면 upload를 기본값으로 설정
 
   return (
-    <div>
+    <>
       {step === "upload" && <Mp3PostPage basePath="help" />}
       {step === "edit" && <EditPage basePath="help" />}
       {step === "title" && (
@@ -32,6 +32,6 @@ export default function HelpPostPage() {
         />
       )}
       {step === "hashtag" && <HashtagPostPage />}
-    </div>
+    </>
   );
 }
