@@ -83,7 +83,7 @@ export default function SignIn() {
             width: "80%",
           })}
         >
-          By tapping Continue with Google, you agree to KompozeNote's{" "}
+          By tapping Continue with Google, you agree to KompozNote's{" "}
           <a
             href="/terms"
             className={css({
