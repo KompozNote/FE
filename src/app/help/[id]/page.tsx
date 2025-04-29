@@ -66,13 +66,85 @@ export default function Help({ params }: Props) {
       })}
     >
       {/* 앨범 이미지 */}
-      <Image
-        src={song.image}
-        alt="Album"
-        width={512}
-        height={512}
-        className={css({ w: "full", h: "auto", rounded: "md" })}
-      />
+      <div
+        className={css({
+          position: "relative",
+          width: "100%",
+          borderRadius: "8px",
+          overflow: "hidden",
+        })}
+      >
+        <Image
+          src={song.image}
+          alt="Album"
+          width={512}
+          height={512}
+          className={css({ w: "full", h: "auto" })}
+        />
+
+        {/* 게시글 제목 및 내용 */}
+        {showFullContent && (
+          <div
+            className={css({
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.6)", // 반투명 배경
+              color: "#fff",
+              padding: "1em",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              overflowY: "auto", // 내용이 넘칠 경우 스크롤 활성화
+            })}
+          >
+            <h2
+              className={css({
+                fontWeight: "bold",
+                marginBottom: "0.5em",
+                whiteSpace: "nowrap", // 제목이 한 줄로 유지되도록 설정
+                overflow: "hidden", // 넘치는 텍스트 숨김
+                textOverflow: "ellipsis", // 말줄임표 추가
+              })}
+            >
+              {song.title}
+            </h2>
+            <p
+              className={css({
+                fontSize: "14px",
+                lineHeight: "1.5",
+                overflowY: "auto", // 내용이 넘칠 경우 스크롤 활성화
+                maxHeight: "80%", // 최대 높이 제한
+              })}
+            >
+              {song.content}
+            </p>
+          </div>
+        )}
+
+        {/* 버튼 */}
+        <button
+          onClick={handleToggleContent}
+          className={css({
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            padding: "12px",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            color: "#fff",
+            fontSize: "16px",
+            fontWeight: "bold",
+            border: "none",
+            cursor: "pointer",
+          })}
+        >
+          {showFullContent ? "Hide Details" : "Show Details"}
+        </button>
+      </div>
 
       {/* 타이틀 & 아티스트 */}
       <div>
@@ -115,17 +187,6 @@ export default function Help({ params }: Props) {
 
       {/* 설명 + Help 버튼 */}
       <div>
-        <div className={css({ whiteSpace: "pre-line", mb: "30" })}>
-          {displayedContent}
-          {isOverflow && (
-            <button
-              className={css({ color: "blue.600", fontSize: "sm", ml: "1" })}
-              onClick={handleToggleContent}
-            >
-              {showFullContent ? "Show less" : "Show more"}
-            </button>
-          )}
-        </div>
         <div
           className={css({
             display: "flex",

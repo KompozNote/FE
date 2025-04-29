@@ -4,17 +4,21 @@ import { css } from "@/../../styled-system/css";
 interface ProfileImgProps {
   src: string;
   alt?: string;
+  widths?: string;
+  heights?: string;
 }
 
 const ProfileImg: React.FC<ProfileImgProps> = ({
   src,
   alt = "User Profile",
+  widths = "50px",
+  heights = "50px",
 }) => {
   return (
     <div
       className={css({
-        width: "50px",
-        height: "50px",
+        width: widths,
+        height: heights,
         borderRadius: "50%",
         overflow: "hidden",
         backgroundColor: "#e0e0e0",

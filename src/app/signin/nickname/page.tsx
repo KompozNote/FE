@@ -25,7 +25,9 @@ export default function NicknamePage() {
       });
 
       if (response.ok) {
-        router.push("/"); // 메인 페이지로 이동
+        router.push(
+          `/signin/profileImage?nickname=${encodeURIComponent(nickname)}`
+        ); // 메인 페이지로 이동
       } else {
         const data = await response.json();
         setError("Unfortunately, That name is already taken.");
@@ -33,7 +35,11 @@ export default function NicknamePage() {
     } catch (error) {
       //   console.error("Nickname submission error:", error);
       //   setError("An error occurred. Please try again.");
-      router.push("/");
+      if (nickname) {
+        router.push(
+          `/signin/profileImage?nickname=${encodeURIComponent(nickname)}`
+        ); // nickname 전달
+      }
     }
   };
 
