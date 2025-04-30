@@ -223,8 +223,9 @@ export default function HelpPage({ params }: Props) {
           fontWeight: "medium",
           fontSize: "sm",
           color: "blue.500",
-          m: "auto",
-          mt: "4",
+          ...(isKeyboardVisible
+            ? { mt: "4" } // 키보드가 올라와 있으면 margin-top만 적용
+            : { m: "auto", mt: "4" }), // 키보드가 없으면 margin 전체 적용
         })}
       >
         <span>
@@ -235,7 +236,11 @@ export default function HelpPage({ params }: Props) {
         </span>
       </div>
       {/* 💬 채팅 영역 */}
-      <ChatWidget />
+      <div
+        className={css({ position: "sticky", overflowY: "auto", bottom: 0 })}
+      >
+        <ChatWidget />
+      </div>
     </div>
   );
 }
