@@ -36,6 +36,14 @@ const ChatWidget: React.FC = () => {
     };
 
     setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    // 스크롤을 맨 아래로 이동
+    setTimeout(() => {
+      const chatListElement = document.getElementById("chat-list");
+      if (chatListElement) {
+        chatListElement.scrollTop = chatListElement.scrollHeight;
+      }
+    }, 0);
   };
 
   return (
@@ -43,23 +51,33 @@ const ChatWidget: React.FC = () => {
       className={css({
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         backgroundColor: "white",
-        overflow: "hidden",
-        flex: 1,
       })}
     >
+      {/* 채팅 리스트 */}
       <div
+        id="chat-list"
         className={css({
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          justifyContent: "flex-end",
           flex: 1,
+          overflowY: "auto", // 스크롤 가능
+          padding: "1rem",
         })}
       >
         <ChatList messages={messages} />
       </div>
-      <MessageSender onSendMessage={handleSendMessage} />
+
+      {/* 메시지 입력 */}
+      <div
+        className={css({
+          position: "sticky",
+          bottom: 0, // 화면 하단에 고정
+          backgroundColor: "white",
+          borderTop: "1px solid #e5e7eb",
+        })}
+      >
+        <MessageSender onSendMessage={handleSendMessage} />
+      </div>
     </div>
   );
 };
